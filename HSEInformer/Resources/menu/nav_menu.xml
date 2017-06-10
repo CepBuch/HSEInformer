@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <group android:checkableBehavior="single">
+    <item  android:icon="@drawable/ic_profile" android:id="@+id/nav_profile" android:checked="true"  android:title="Профиль" />
+    <item android:icon="@drawable/ic_content"   android:id="@+id/nav_content"  android:title="Уведомления" />
+    <item  android:icon="@drawable/ic_deadlines" android:id="@+id/nav_deadlines"  android:title="Дедлайны" />
+  </group>
+  <item >
+    <menu>
+      <item  android:icon="@drawable/ic_exit" android:id="@+id/nav_exit" android:title="Выход" />
+    </menu>
+  </item>
+</menu>

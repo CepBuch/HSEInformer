@@ -2,5 +2,7 @@
 <resources>
     <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">HSEInformer</string>
-  <string name="AppTitle">HSE Informer</string>
+    <string name="AppTitle">HSE Informer</string>
+    <string name="openDrawer">"Меню"</string>
+    <string name="closeDrawer">"Главная страница"</string>
 </resources>
