@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+    <TextView
+        android:text="Введите код подтверждения, пришедший вам на почту"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:textColor="@color/dark"
+        android:gravity="center_horizontal"
+        android:padding="15dp"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:enabled="false"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/email_text" />
+    <EditText
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:hint="Код подтверждения"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/code_text" />
+    <Button
+        android:text="Проверить"
+        android:enabled="false"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/confirmButton"
+        style="@style/hse_button" />
+    <Button
+        android:text="Вернуться"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/backButton"
+        style="@style/hse_button" />
+</LinearLayout>

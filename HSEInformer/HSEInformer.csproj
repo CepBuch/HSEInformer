@@ -106,10 +106,14 @@
     <Compile Include="ApiManager.cs" />
     <Compile Include="DTO\Response.cs" />
     <Compile Include="DTO\Token.cs" />
+    <Compile Include="DTO\User.cs" />
+    <Compile Include="Fragments\CodeFragment.cs" />
     <Compile Include="Fragments\ConfirmationFragment.cs" />
     <Compile Include="Fragments\LoginFragment.cs" />
+    <Compile Include="Fragments\RegistrationFragment.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -130,6 +134,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ConfirmationFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CodeFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

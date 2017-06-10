@@ -4,95 +4,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
-  <TextView
-      android:text="Вход в HSE Informer"
-      android:textAppearance="?android:attr/textAppearanceLarge"
-      android:layout_width="match_parent"
-      android:textColor="@color/dark"
-      android:gravity="center_horizontal"
-      android:layout_height="wrap_content" />
-  <LinearLayout
-      android:layout_height="wrap_content"
-      android:layout_width="match_parent"
-      android:layout_marginTop="20dp"
-      android:gravity="center"
-      android:weightSum="100"
-      android:layout_marginLeft="15dp"
-      android:layout_marginRight="15dp"
-      android:orientation="horizontal">
+    <TextView
+        android:text="Вход в HSE Informer"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:textColor="@color/dark"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:weightSum="100"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_height="50dp"
+            android:layout_width="0dp"
+            android:layout_weight="55"
+            android:hint="E-mail"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:id="@+id/login_text" />
+        <TextView
+            android:text="@string/at"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content" />
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_weight="40"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:id="@+id/domain_spinner" />
+    </LinearLayout>
     <EditText
+        android:inputType="textPassword"
+        android:hint="Введите пароль"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_height="50dp"
-        android:layout_width="0dp"
-        android:layout_weight="55"
-        android:hint="E-mail"
+        android:layout_width="match_parent"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:id="@+id/login_text" />
-    <TextView
-        android:text="@string/at"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:gravity="center_horizontal"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_width="0dp"
-        android:layout_weight="5"
-        android:layout_height="wrap_content" />
-    <Spinner
-        android:layout_width="0dp"
-        android:layout_weight="40"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:id="@+id/domain_spinner" />
-  </LinearLayout>
-  <EditText
-      android:inputType="textPassword"
-      android:hint="Введите пароль"
-      android:layout_marginTop="20dp"
-      android:layout_marginLeft="15dp"
-      android:layout_marginRight="15dp"
-      android:layout_height="50dp"
-      android:layout_width="match_parent"
-      android:paddingLeft="15dp"
-      android:paddingRight="15dp"
-      android:id="@+id/password_text" />
-
-  <LinearLayout 
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
-    <Button
-        android:text="Войти"
-        android:enabled="false"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/loginButton"
-        style="@style/hse_button" />
-    <TextView
-        android:text="или"
-        android:id="@+id/orTextView"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginTop="5dp"
-        android:gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/dark" />
-    <Button
-        android:text="Зарегистрироваться"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:id="@+id/registerButton"
-        style="@style/hse_button" />
-  </LinearLayout>
-  <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:indeterminate="true"
-        android:gravity="center"
-        android:indeterminateTintMode="src_in"
-        android:indeterminateTint="@color/dark" />
+        android:id="@+id/password_text" />
+      <Button
+          android:text="Войти"
+          android:enabled="false"
+          android:layout_width="200dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:id="@+id/loginButton"
+          style="@style/hse_button" />
+      <TextView
+          android:text="или"
+          android:id="@+id/orTextView"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:layout_marginTop="5dp"
+          android:gravity="center_horizontal"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/dark" />
+      <Button
+          android:text="Зарегистрироваться"
+          android:layout_width="200dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:id="@+id/registerButton"
+          style="@style/hse_button" />
+      <ProgressBar
+          android:id="@+id/progressBar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          android:indeterminate="true"
+          android:gravity="center"
+          android:indeterminateTintMode="src_in"
+          android:indeterminateTint="@color/dark" />
 </LinearLayout>

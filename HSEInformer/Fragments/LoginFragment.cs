@@ -46,7 +46,6 @@ namespace HSEInformer.Fragments
             base.OnCreate(savedInstanceState);
             prefs = PreferenceManager.GetDefaultSharedPreferences(Activity.ApplicationContext);
             _editor = prefs.Edit();
-            //Getting current lunguage from application properties. 
             var host = prefs.GetString("host", null);
             manager = new ApiManager(host);
         }
@@ -60,21 +59,28 @@ namespace HSEInformer.Fragments
 
             loginButton = view.FindViewById<Button>(Resource.Id.loginButton);
             loginButton.Click += LoginButton_Click;
+
             registerButton = view.FindViewById<Button>(Resource.Id.registerButton);
             registerButton.Click += RegisterButton_Click;
-            domainSpinner = view.FindViewById<Spinner>(Resource.Id.domain_spinner);
+
+
             loginEditText = view.FindViewById<EditText>(Resource.Id.login_text);
             loginEditText.Text = username ?? string.Empty;
             loginEditText.TextChanged += LoginTextView_TextChanged;
+
             passwordEditText = view.FindViewById<EditText>(Resource.Id.password_text);
             passwordEditText.TextChanged += LoginTextView_TextChanged;
+
             orTextView = view.FindViewById<TextView>(Resource.Id.orTextView);
+            loadBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar);
+
+
+            domainSpinner = view.FindViewById<Spinner>(Resource.Id.domain_spinner);
             string[] domains = Resources.GetStringArray(Resource.Array.domains_array);
             ArrayAdapter<string> adapter = new ArrayAdapter<string>(Context, Android.Resource.Layout.SimpleSpinnerItem, domains);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             domainSpinner.Adapter = adapter;
             domainSpinner.SetSelection(0);
-            loadBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar);
             return view;
         }
 
@@ -85,7 +91,11 @@ namespace HSEInformer.Fragments
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-           
+            var trans = FragmentManager.BeginTransaction();
+            var confirmationFragment = ConfirmationFragment.newInstance();
+            trans.Replace(Resource.Id.LoginFragmentContainer, confirmationFragment);
+            trans.AddToBackStack("LoginFragment");
+            trans.Commit();
         }
 
         private async void LoginButton_Click(object sender, EventArgs e)

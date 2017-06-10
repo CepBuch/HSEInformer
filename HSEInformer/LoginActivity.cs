@@ -28,7 +28,7 @@ namespace HSEInformer
         private void ShowLoginFragment()
         {
             var trans = SupportFragmentManager.BeginTransaction();
-            var emailFragment = LoginFragment.newInstance();
+            var emailFragment = LoginFragment.newInstance(string.Empty);
             trans.Replace(Resource.Id.LoginFragmentContainer, emailFragment);
             trans.Commit();
         }

@@ -1,7 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+    <TextView
+        android:text="Укажите адрес корпоративной почты для подтверждения того, что вы член ВШЭ"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:textColor="@color/dark"
+        android:padding="15dp"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:weightSum="100"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_height="50dp"
+            android:layout_width="0dp"
+            android:layout_weight="55"
+            android:hint="E-mail"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:id="@+id/email_text" />
+        <TextView
+            android:text="@string/at"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content" />
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_weight="40"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:id="@+id/domain_spinner" />
+    </LinearLayout>
+    <Button
+        android:text="Отправить"
+        android:enabled="false"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/sendButton"
+        style="@style/hse_button" />
+    <Button
+        android:text="Вернуться"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/backButton"
+        style="@style/hse_button" />
 </LinearLayout>
