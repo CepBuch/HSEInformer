@@ -5,4 +5,10 @@
     <string name="AppTitle">HSE Informer</string>
     <string name="openDrawer">"Меню"</string>
     <string name="closeDrawer">"Главная страница"</string>
+    <string name="at">\@</string>
+  
+  <string-array name="domains_array">
+    <item>edu.hse.ru</item>
+    <item>hse.ru</item>
+  </string-array>
 </resources>

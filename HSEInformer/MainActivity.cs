@@ -40,7 +40,8 @@ namespace HSEInformer
             if (authorized)
             {
                 CustomizeToolbarAndNavView();
-
+                //Выбираем вкладку "Уведомления"
+                
                 FillData();
             }
         }
@@ -73,6 +74,7 @@ namespace HSEInformer
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             _navigationView.InflateMenu(Resource.Menu.nav_menu);
+            _navigationView.Menu.GetItem(1).SetChecked(true);
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
 
             return base.OnPrepareOptionsMenu(menu);
@@ -99,14 +101,13 @@ namespace HSEInformer
             {
                 case Resource.Id.nav_exit:
                     {
-                        //var dialog = new Android.App.AlertDialog.Builder(this);
-                        //dialog.SetMessage(GetString(Resource.String.logout_message));
+                        var dialog = new Android.App.AlertDialog.Builder(this);
+                        string message = "Вы действительно хотите выйти?";
+                        dialog.SetMessage(message);
 
-                        //dialog.SetPositiveButton("Yes", delegate { LogOut(); });
-                        //dialog.SetNegativeButton("Cancel", delegate { });
-                        //dialog.Show();
-                        //break;
-                        Toast.MakeText(this, "Выход", ToastLength.Long).Show();
+                        dialog.SetPositiveButton("Да", delegate { LogOut(); });
+                        dialog.SetNegativeButton("Нет", delegate { });
+                        dialog.Show();
                         break;
                     }
                 case Resource.Id.nav_profile:
@@ -135,10 +136,9 @@ namespace HSEInformer
             var authorized = _prefs.GetBoolean("authorized", false);
             var token = _prefs.GetString("token", null);
 
-            return true;
-            CheckConnection();
+            var connected = CheckConnection();
 
-            if (!authorized || string.IsNullOrWhiteSpace(token))
+            if (connected && (!authorized || string.IsNullOrWhiteSpace(token)))
             {
                 var intet = new Intent(this, typeof(LoginActivity));
                 StartActivity(intet);
@@ -165,16 +165,28 @@ namespace HSEInformer
             {
                 var dialog = new Android.App.AlertDialog.Builder(this);
                 string message = "Для работы приложения необходимо интернет-соединение";
-                string title = "Нет интернет-соединения";
+                string title = "Нет интернет соединения";
                 dialog.SetTitle(title);
                 dialog.SetMessage(message);
 
                 dialog.SetCancelable(false);
                 dialog.SetMessage(message);
-                dialog.SetPositiveButton("Ok", delegate { this.Finish(); });
+                dialog.SetPositiveButton("Повторить", delegate { this.Recreate(); });
+                dialog.SetNegativeButton("Выйти", delegate { this.Finish(); });
                 dialog.Show();
                 return false;
             }
+        }
+
+        public void LogOut()
+        {
+            //Удаляем все данные о пользователе
+            _editor.PutBoolean("authorized", false);
+            _editor.PutString("token", null);
+            _editor.Apply();
+
+            //Перезапускаем приложение
+            this.Recreate();
         }
     }
 }

@@ -11,14 +11,22 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 
-namespace HSEInformer
+namespace HSEInformer.Fragments
 {
-    public class EmailFragment : Android.Support.V4.App.Fragment
+    public class ConfirmationFragment : Android.Support.V4.App.Fragment
     {
+        public static ConfirmationFragment newInstance()
+        {
+            ConfirmationFragment fragment = new ConfirmationFragment();
+            Bundle args = new Bundle();
+            fragment.Arguments = args;
+            return fragment;
+        }
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            
             // Create your fragment here
         }
 
