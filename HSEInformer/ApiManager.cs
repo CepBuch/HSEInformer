@@ -23,6 +23,7 @@ namespace HSEInformer
         const string UriCheckAccountIsRegistred = "{0}/checkAccountIsRegistred?email={1}";
         const string UriSendConfirmationCode = "{0}/sendConfirmationCode?email={1}";
         const string UriConfirmEmail = "{0}/confirmEmail";
+        const string UriRegister = "{0}/register";
         public ApiManager(string host)
         {
             if (string.IsNullOrWhiteSpace(host))
@@ -162,6 +163,45 @@ namespace HSEInformer
                             Patronymic = res.Result.Patronymic,
                             Email = res.Result.Email
                         };
+
+                    }
+                    else
+                    {
+                        throw new WebException(res.Message);
+                    }
+                }
+                else throw new WebException("Неполадки на сервере");
+            }
+        }
+
+        public async Task<bool> Register(string username, string password, string confirmed_password, string code)
+        {
+            using (var client = new HttpClient())
+            {
+
+                string requestUri = string.Format(UriRegister, _host);
+
+                var jsonString = JsonConvert.SerializeObject(new
+                {
+                    Code = code,
+                    Email = username,
+                    Password = password,
+                    PasswordConfirm = confirmed_password
+
+                });
+
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(requestUri, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<bool>>(responseString);
+
+                    if (res != null && res.Ok)
+                    {
+                        return res.Result;
 
                     }
                     else

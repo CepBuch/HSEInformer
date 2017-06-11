@@ -20,11 +20,13 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:orientation="horizontal">
-        <EditText
+      <EditText
+            android:inputType="text"
             android:layout_height="50dp"
             android:layout_width="0dp"
             android:layout_weight="55"
             android:hint="E-mail"
+            android:maxLines="1"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:id="@+id/login_text" />
@@ -47,6 +49,7 @@
     <EditText
         android:inputType="textPassword"
         android:hint="Введите пароль"
+        android:maxLines="1"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -55,37 +58,37 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:id="@+id/password_text" />
-      <Button
-          android:text="Войти"
-          android:enabled="false"
-          android:layout_width="200dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:id="@+id/loginButton"
-          style="@style/hse_button" />
-      <TextView
-          android:text="или"
-          android:id="@+id/orTextView"
-          android:textAppearance="?android:attr/textAppearanceMedium"
-          android:layout_marginTop="5dp"
-          android:gravity="center_horizontal"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textColor="@color/dark" />
-      <Button
-          android:text="Зарегистрироваться"
-          android:layout_width="200dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="5dp"
-          android:id="@+id/registerButton"
-          style="@style/hse_button" />
-      <ProgressBar
-          android:id="@+id/progressBar"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:visibility="gone"
-          android:indeterminate="true"
-          android:gravity="center"
-          android:indeterminateTintMode="src_in"
-          android:indeterminateTint="@color/dark" />
+    <Button
+        android:text="Войти"
+        android:enabled="false"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/loginButton"
+        style="@style/hse_button" />
+    <TextView
+        android:text="или"
+        android:id="@+id/orTextView"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dark" />
+    <Button
+        android:text="Зарегистрироваться"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:id="@+id/registerButton"
+        style="@style/hse_button" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:gravity="center"
+        android:indeterminateTintMode="src_in"
+        android:indeterminateTint="@color/dark" />
 </LinearLayout>

@@ -13,6 +13,8 @@
         android:padding="15dp"
         android:layout_height="wrap_content" />
     <EditText
+        android:inputType="text"
+        android:maxLines="1"
         android:layout_height="50dp"
         android:layout_width="match_parent"
         android:enabled="false"
@@ -22,6 +24,9 @@
         android:layout_marginRight="15dp"
         android:id="@+id/email_text" />
     <EditText
+        android:inputType="text"
+        android:maxLines="1"
+        android:maxLength="6"
         android:layout_height="50dp"
         android:layout_width="match_parent"
         android:hint="Код подтверждения"

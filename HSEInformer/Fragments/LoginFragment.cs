@@ -33,7 +33,7 @@ namespace HSEInformer.Fragments
         {
             LoginFragment fragment = new LoginFragment();
             Bundle args = new Bundle();
-            args.PutString("username",username);
+            args.PutString("username", username);
 
             fragment.Arguments = args;
             return fragment;
@@ -102,13 +102,14 @@ namespace HSEInformer.Fragments
         {
             if ((Activity as LoginActivity).CheckConnection())
             {
+                
                 EnableControls(false);
                 try
                 {
                     var domain = domainSpinner.SelectedItem.ToString();
                     var username = $"{loginEditText.Text}@{domain}";
                     var password = passwordEditText.Text;
-                    var token = await manager.Login(username, password);
+                    var token = await manager.Login(username, MD5Converter.Convert(password));
                     _editor.PutString("token", token);
                     _editor.PutBoolean("authorized", true);
                     _editor.Apply();

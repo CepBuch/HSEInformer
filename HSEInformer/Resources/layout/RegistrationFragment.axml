@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:textColor="@color/dark"
+        android:gravity="center_horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/email_text" />
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:textColor="@color/dark"
+        android:gravity="center_horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/initials_text" />
+    <EditText
+        android:inputType="textPassword"
+        android:hint="Введите пароль"
+        android:maxLines="1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:id="@+id/password_text" />
+    <EditText
+        android:inputType="textPassword"
+        android:hint="Введите пароль еще раз"
+        android:maxLines="1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:id="@+id/passwordconfirm_text" />
+    <TextView
+        android:text="Пароли не совпадают"
+        android:visibility="invisible"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:textColor="@color/red"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/warning_text" />
+    <Button
+        android:text="Зарегистрироваться"
+        android:enabled="false"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/registerButton"
+        style="@style/hse_button" />
+</LinearLayout>

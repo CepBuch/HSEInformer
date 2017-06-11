@@ -105,6 +105,7 @@ namespace HSEInformer.Fragments
             var trans = FragmentManager.BeginTransaction();
             var registrationFragment = RegistrationFragment.newInstance(user, code);
             trans.Replace(Resource.Id.LoginFragmentContainer, registrationFragment);
+            trans.AddToBackStack("CodeFragment");
             trans.Commit();
         }
         private void EnableControls(bool enable)

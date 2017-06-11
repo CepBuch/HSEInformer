@@ -32,6 +32,7 @@ namespace HSEInformer
             trans.Replace(Resource.Id.LoginFragmentContainer, emailFragment);
             trans.Commit();
         }
+        public override void OnBackPressed() { }
 
         public bool CheckConnection()
         {

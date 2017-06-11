@@ -2496,6 +2496,9 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07009d
 			public const int info = 2131165341;
 			
+			// aapt resource value: 0x7f0700a7
+			public const int initials_text = 2131165351;
+			
 			// aapt resource value: 0x7f070000
 			public const int item_touch_helper_previous_elevation = 2131165184;
 			
@@ -2526,14 +2529,14 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07008e
 			public const int mainFragmentContainer = 2131165326;
 			
-			// aapt resource value: 0x7f0700a9
-			public const int masked = 2131165353;
+			// aapt resource value: 0x7f0700ac
+			public const int masked = 2131165356;
 			
 			// aapt resource value: 0x7f070096
 			public const int media_actions = 2131165334;
 			
-			// aapt resource value: 0x7f0700aa
-			public const int menu_plus = 2131165354;
+			// aapt resource value: 0x7f0700ad
+			public const int menu_plus = 2131165357;
 			
 			// aapt resource value: 0x7f070022
 			public const int middle = 2131165218;
@@ -2544,17 +2547,17 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07001a
 			public const int multiply = 2131165210;
 			
-			// aapt resource value: 0x7f0700ac
-			public const int nav_content = 2131165356;
+			// aapt resource value: 0x7f0700af
+			public const int nav_content = 2131165359;
 			
-			// aapt resource value: 0x7f0700ad
-			public const int nav_deadlines = 2131165357;
+			// aapt resource value: 0x7f0700b0
+			public const int nav_deadlines = 2131165360;
+			
+			// aapt resource value: 0x7f0700b1
+			public const int nav_exit = 2131165361;
 			
 			// aapt resource value: 0x7f0700ae
-			public const int nav_exit = 2131165358;
-			
-			// aapt resource value: 0x7f0700ab
-			public const int nav_profile = 2131165355;
+			public const int nav_profile = 2131165358;
 			
 			// aapt resource value: 0x7f07008f
 			public const int nav_view = 2131165327;
@@ -2591,6 +2594,9 @@ namespace HSEInformer
 			
 			// aapt resource value: 0x7f070087
 			public const int password_text = 2131165319;
+			
+			// aapt resource value: 0x7f0700a8
+			public const int passwordconfirm_text = 2131165352;
 			
 			// aapt resource value: 0x7f070038
 			public const int pin = 2131165240;
@@ -2763,8 +2769,8 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07008d
 			public const int toolbar = 2131165325;
 			
-			// aapt resource value: 0x7f0700a7
-			public const int toolbar_title = 2131165351;
+			// aapt resource value: 0x7f0700aa
+			public const int toolbar_title = 2131165354;
 			
 			// aapt resource value: 0x7f070029
 			public const int top = 2131165225;
@@ -2790,8 +2796,11 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07000e
 			public const int view_offset_helper = 2131165198;
 			
-			// aapt resource value: 0x7f0700a8
-			public const int visible = 2131165352;
+			// aapt resource value: 0x7f0700ab
+			public const int visible = 2131165355;
+			
+			// aapt resource value: 0x7f0700a9
+			public const int warning_text = 2131165353;
 			
 			// aapt resource value: 0x7f070027
 			public const int withText = 2131165223;
@@ -3039,19 +3048,22 @@ namespace HSEInformer
 			public const int notification_template_part_time = 2130903101;
 			
 			// aapt resource value: 0x7f03003e
-			public const int select_dialog_item_material = 2130903102;
+			public const int RegistrationFragment = 2130903102;
 			
 			// aapt resource value: 0x7f03003f
-			public const int select_dialog_multichoice_material = 2130903103;
+			public const int select_dialog_item_material = 2130903103;
 			
 			// aapt resource value: 0x7f030040
-			public const int select_dialog_singlechoice_material = 2130903104;
+			public const int select_dialog_multichoice_material = 2130903104;
 			
 			// aapt resource value: 0x7f030041
-			public const int support_simple_spinner_dropdown_item = 2130903105;
+			public const int select_dialog_singlechoice_material = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int toolbar = 2130903106;
+			public const int support_simple_spinner_dropdown_item = 2130903106;
+			
+			// aapt resource value: 0x7f030043
+			public const int toolbar = 2130903107;
 			
 			static Layout()
 			{
