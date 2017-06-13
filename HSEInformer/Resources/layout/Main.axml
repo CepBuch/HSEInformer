@@ -16,12 +16,34 @@
                 android:layout_centerHorizontal="true"
                 android:id="@+id/toolbar"
                 layout="@layout/toolbar" />
-            <FrameLayout
+        <!--<FrameLayout
                 android:id="@+id/mainFragmentContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" />-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textMessage" />
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Послать всем"
+                    android:id="@+id/sendMessage" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:text="Сообщение будет тут"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lastMessage" />
+            </LinearLayout>
         </LinearLayout>
-    <android.support.design.widget.NavigationView
+        <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
             android:layout_height="match_parent"
             android:layout_width="300dp"

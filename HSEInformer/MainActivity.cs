@@ -10,6 +10,9 @@ using Android.Preferences;
 using Android.Net;
 using Android.Support.V4.Widget;
 using Android.Views;
+using Microsoft.AspNet.SignalR.Client;
+using Java.Lang;
+using System.Collections.Generic;
 
 namespace HSEInformer
 {
@@ -23,26 +26,75 @@ namespace HSEInformer
         DrawerLayout _drawerLayout;
         NavigationView _navigationView;
         ActionBarDrawerToggle _drawerToggle;
-
+        Button sendButton;
+        TextView lastMessageView;
+        EditText messageText;
+        string token;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             _editor = _prefs.Edit();
-            _editor.PutString("host", "http://hseinformerserver.azurewebsites.net");
+            var host = "http://hseinformerserver.azurewebsites.net";
+            _editor.PutString("host", host);
             _editor.Apply();
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
+            //------------------------------------------
+            sendButton = FindViewById<Button>(Resource.Id.sendMessage);
+            lastMessageView = FindViewById<TextView>(Resource.Id.lastMessage);
+            messageText = FindViewById<EditText>(Resource.Id.textMessage);
+            //--------------------------------------
+            // Set our view from the "main" layout resource
+
             var authorized = CheckAuthorization();
 
             if (authorized)
             {
                 CustomizeToolbarAndNavView();
+
+                ConnectToHub(host);
+
                 //Выбираем вкладку "Уведомления"
-                
-                FillData();
+
+                //FillData();
+            }
+        }
+
+        private async void ConnectToHub(string host)
+        {
+            //Путь к серверу
+            var hubConnection = new HubConnection(host, new Dictionary<string, string> { { "Authorization", "Bearer " + token } });
+            //Устанавливаем прокси-соединенние с хабом, который надо прослушивать (имя класса)
+            var chatHubProxy = hubConnection.CreateHubProxy("ChatHub");
+
+            ////Событие, которое будет возникать при получении сообщения 
+            chatHubProxy.On<string, string>("UpdateChatMessage", (name, message) =>
+            {
+                this.RunOnUiThread(() =>
+                {
+                    lastMessageView.Text = message;
+                });
+
+            });
+
+
+
+            //////По нажатии кнопки юзер отправляет сообщение
+            sendButton.Click += async (o, e) =>
+            {
+                await chatHubProxy.Invoke("SendMessage", new object[] { "A: ", messageText.Text });
+            };
+
+            // Соединяемся
+            try
+            {
+                await hubConnection.Start();
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "Не получается подсоединится к хабу: " + ex.Message, ToastLength.Long).Show();
             }
         }
 
@@ -134,7 +186,7 @@ namespace HSEInformer
         public bool CheckAuthorization()
         {
             var authorized = _prefs.GetBoolean("authorized", false);
-            var token = _prefs.GetString("token", null);
+            token = _prefs.GetString("token", null);
 
             var connected = CheckConnection();
 
