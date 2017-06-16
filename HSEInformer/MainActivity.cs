@@ -13,6 +13,7 @@ using Android.Views;
 using Microsoft.AspNet.SignalR.Client;
 using Java.Lang;
 using System.Collections.Generic;
+using HSEInformer.Fragments;
 
 namespace HSEInformer
 {
@@ -29,6 +30,7 @@ namespace HSEInformer
         Button sendButton;
         TextView lastMessageView;
         EditText messageText;
+        
         string token;
 
         protected override void OnCreate(Bundle bundle)
@@ -41,11 +43,12 @@ namespace HSEInformer
             _editor.Apply();
 
             SetContentView(Resource.Layout.Main);
+            //swipeRefreshLayout = 
             //------------------------------------------
-            sendButton = FindViewById<Button>(Resource.Id.sendMessage);
-            lastMessageView = FindViewById<TextView>(Resource.Id.lastMessage);
-            messageText = FindViewById<EditText>(Resource.Id.textMessage);
-            //--------------------------------------
+            //sendButton = FindViewById<Button>(Resource.Id.sendMessage);
+            //lastMessageView = FindViewById<TextView>(Resource.Id.lastMessage);
+            //messageText = FindViewById<EditText>(Resource.Id.textMessage);
+            ////--------------------------------------
             // Set our view from the "main" layout resource
 
             var authorized = CheckAuthorization();
@@ -53,12 +56,11 @@ namespace HSEInformer
             if (authorized)
             {
                 CustomizeToolbarAndNavView();
+                ShowFeed();
+                //ConnectToHub(host);
 
-                ConnectToHub(host);
 
-                //Выбираем вкладку "Уведомления"
-
-                //FillData();
+                
             }
         }
 
@@ -98,9 +100,12 @@ namespace HSEInformer
             }
         }
 
-        public void FillData()
+        private void ShowFeed()
         {
-
+            var trans = SupportFragmentManager.BeginTransaction();
+            var categoriesContainerFragment = FeedFragment.newInstance();
+            trans.Replace(Resource.Id.mainFragmentContainer, categoriesContainerFragment);
+            trans.Commit();
         }
 
         public void CustomizeToolbarAndNavView()
@@ -169,8 +174,7 @@ namespace HSEInformer
                     }
                 case Resource.Id.nav_content:
                     {
-                        Toast.MakeText(this, "Новости", ToastLength.Long).Show();
-
+                        ShowFeed();
                         break;
                     }
                 case Resource.Id.nav_deadlines:
