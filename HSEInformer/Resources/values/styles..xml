@@ -20,4 +20,14 @@
     <item name="android:focusable">true</item>
     <item name="android:clickable">true</item>
   </style>
+
+
+  <style name="group_button" parent="@android:style/Widget.Button">
+    <item name="android:gravity">center_vertical|center_horizontal</item>
+    <item name="android:textColor">@drawable/group_text</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:background">@drawable/group_shape</item>
+    <item name="android:focusable">true</item>
+    <item name="android:clickable">true</item>
+  </style>
 </resources>

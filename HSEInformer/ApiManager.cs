@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using HSEInformer.DTO;
 using System.Net;
+using System.Net.Http.Headers;
 
 namespace HSEInformer
 {
@@ -24,6 +25,8 @@ namespace HSEInformer
         const string UriSendConfirmationCode = "{0}/sendConfirmationCode?email={1}";
         const string UriConfirmEmail = "{0}/confirmEmail";
         const string UriRegister = "{0}/register";
+        const string UriGetGroups = "{0}/getGroups";
+
         public ApiManager(string host)
         {
             if (string.IsNullOrWhiteSpace(host))
@@ -211,6 +214,50 @@ namespace HSEInformer
                 }
                 else throw new WebException("Неполадки на сервере");
             }
+        }
+
+
+        public async Task<List<Model.Group>> GetGroups(string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriGetGroups, _host);
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<Group[]>>(responseString);
+
+                    if (res != null && res.Ok)
+                    {
+                        var DTOgroups = res.Result;
+
+                        var modelGroups = DTOgroups.Select(g => new Model.Group
+                        {
+                            Id = g.Id,
+                            Name = g.Name,
+                            Type = g.GroupType == 0 ? Model.GroupType.AutoCreated : Model.GroupType.Custom,
+                        }).ToArray();
+
+                        return modelGroups.ToList();
+
+                    }
+                    else
+                    {
+                        throw new WebException(res.Message);
+                    }
+
+                }
+                else
+                {
+                    throw new WebException("Неполадки на сервере");
+                }
+            }
+
         }
     }
 }

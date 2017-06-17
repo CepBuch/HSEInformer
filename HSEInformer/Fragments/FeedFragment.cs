@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V4.Widget;
 using System.Threading.Tasks;
+using Android.Preferences;
 
 namespace HSEInformer.Fragments
 {
@@ -19,6 +20,8 @@ namespace HSEInformer.Fragments
     {
         SwipeRefreshLayout swipeRefreshLayout;
         TextView infoTextView;
+        ApiManager _manager;
+        ISharedPreferences _prefs;
         public static FeedFragment newInstance()
         {
             FeedFragment fragment = new FeedFragment();
@@ -31,8 +34,9 @@ namespace HSEInformer.Fragments
         {
 
             base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
+            _prefs = PreferenceManager.GetDefaultSharedPreferences(Activity.ApplicationContext);
+            var host = _prefs.GetString("host", null);
+            _manager = new ApiManager(host);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -47,7 +51,10 @@ namespace HSEInformer.Fragments
                 infoTextView.Text = $"Refreshed {++i}";
                 swipeRefreshLayout.Refreshing = false;
             };
+
             return view;
         }
+
+
     }
 }

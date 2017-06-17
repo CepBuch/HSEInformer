@@ -114,17 +114,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiManager.cs" />
+    <Compile Include="DTO\Group.cs" />
     <Compile Include="DTO\Response.cs" />
     <Compile Include="DTO\Token.cs" />
     <Compile Include="DTO\User.cs" />
+    <Compile Include="Fragments\GroupsFragment.cs" />
     <Compile Include="Fragments\Login and registration\CodeFragment.cs" />
     <Compile Include="Fragments\Login and registration\ConfirmationFragment.cs" />
     <Compile Include="Fragments\FeedFragment.cs" />
     <Compile Include="Fragments\Login and registration\LoginFragment.cs" />
     <Compile Include="Fragments\Login and registration\RegistrationFragment.cs" />
+    <Compile Include="GroupViewModel\GroupAdapter.cs" />
+    <Compile Include="GroupViewModel\GroupList.cs" />
+    <Compile Include="GroupViewModel\GroupViewHolder.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MD5Converter.cs" />
+    <Compile Include="Model\Group.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -155,6 +161,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\FeedFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\GroupView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\GroupsFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -207,6 +219,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_text.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\group_shape.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\group_text.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

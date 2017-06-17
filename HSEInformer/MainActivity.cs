@@ -108,6 +108,8 @@ namespace HSEInformer
             trans.Commit();
         }
 
+
+
         public void CustomizeToolbarAndNavView()
         {
             //Accepting toolbar and drawerlayout
@@ -172,9 +174,17 @@ namespace HSEInformer
                         Toast.MakeText(this, "Профиль", ToastLength.Long).Show();
                         break;
                     }
-                case Resource.Id.nav_content:
+                case Resource.Id.nav_feed:
                     {
                         ShowFeed();
+                        break;
+                    }
+                case Resource.Id.nav_groups:
+                    {
+                        var trans = SupportFragmentManager.BeginTransaction();
+                        var categoriesContainerFragment = GroupsFragment.newInstance();
+                        trans.Replace(Resource.Id.mainFragmentContainer, categoriesContainerFragment);
+                        trans.Commit();
                         break;
                     }
                 case Resource.Id.nav_deadlines:
