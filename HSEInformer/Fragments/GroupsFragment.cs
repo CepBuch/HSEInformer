@@ -41,53 +41,92 @@ namespace HSEInformer.Fragments
             _prefs = PreferenceManager.GetDefaultSharedPreferences(Activity.ApplicationContext);
             var host = _prefs.GetString("host", null);
             _manager = new ApiManager(host);
-
+            groupsList = new GroupList(new List<Model.Group>());
             base.OnCreate(savedInstanceState);
         }
 
-        public async override void OnActivityCreated(Bundle savedInstanceState)
-        {
-            base.OnActivityCreated(savedInstanceState);
-            await ShowGroups();
 
-        }
-        public async Task ShowGroups()
-        {
-            var token = _prefs.GetString("token", null);
 
-            if (token != null)
-            {
-                progressBar.Visibility = ViewStates.Visible;
-                recyclerView.Visibility = ViewStates.Gone;
-                var groups = await _manager.GetGroups(token);
-                groupsList = new GroupList(groups);
-                groupsAdapter = new GroupAdapter(Context, groupsList);
-                recyclerView.SetAdapter(groupsAdapter);
 
-                groupsAdapter.ItemClick += _groupsAdapter_ItemClick;
-                progressBar.Visibility = ViewStates.Gone;
-                recyclerView.Visibility = ViewStates.Visible;
-            }
-        }
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.GroupsFragment, container, false);
             progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar);
             recyclerView = view.FindViewById<RecyclerView>(Resource.Id.recycler_view);
+            groupsAdapter = new GroupAdapter(Context, groupsList);
+            recyclerView.SetAdapter(groupsAdapter);
             layoutManager = new LinearLayoutManager(Activity);
             recyclerView.SetLayoutManager(layoutManager);
             return view;
-          
         }
 
-        
 
 
-
-
-        private void _groupsAdapter_ItemClick(Model.Group group)
+        public override void OnActivityCreated(Bundle savedInstanceState)
         {
-            Toast.MakeText(Context, $"{group.Name} ({group.Id})", ToastLength.Short).Show();
+            base.OnActivityCreated(savedInstanceState);
+            ShowGroups();
+        }
+
+
+        public async void ShowGroups()
+        {
+            var token = _prefs.GetString("token", null);
+
+            if (token != null && (Activity as MainActivity).CheckConnection())
+            {
+                try
+                {
+                    progressBar.Visibility = ViewStates.Visible;
+                    recyclerView.Visibility = ViewStates.Gone;
+                    var groups = await _manager.GetGroups(token);
+                    groupsList.Groups = groups;
+                    groupsAdapter.NotifyDataSetChanged();
+                    groupsAdapter.ItemClick += groupsAdapter_ItemClick;
+
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    var dialog = new Android.App.AlertDialog.Builder(Context);
+                    string message = "Ваши параметры авторизации устарели." +
+                        "\nВы будете возвращены на страницу авторизации, чтобы пройти процедуру авторизации заново";
+                    dialog.SetMessage(message);
+                    dialog.SetCancelable(false);
+                    dialog.SetPositiveButton("Ок", delegate
+                    {
+                        (Activity as MainActivity).LogOut();
+
+                    });
+                    dialog.Show();
+                }
+                catch (Exception ex)
+                {
+
+                    var dialog = new Android.App.AlertDialog.Builder(Context);
+                    string message = ex.Message;
+                    dialog.SetMessage(message);
+                    dialog.SetPositiveButton("Ок", delegate { });
+                    dialog.Show();
+                }
+                finally
+                {
+                    progressBar.Visibility = ViewStates.Gone;
+                    recyclerView.Visibility = ViewStates.Visible;
+                }
+            }
+        }
+
+
+
+
+
+
+        private void groupsAdapter_ItemClick(Model.Group group)
+        {
+            var intent = new Intent(Context, typeof(GroupContentActivity));
+            intent.PutExtra("group_id", group.Id);
+            intent.PutExtra("group_name", group.Name);
+            StartActivity(intent);
         }
     }
 }

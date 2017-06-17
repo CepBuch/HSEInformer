@@ -211,11 +211,7 @@ namespace HSEInformer
                 this.Finish();
                 return false;
             }
-            else
-            {
-                //TODO: check token
-                return true;
-            }
+            else return true;
         }
 
         public bool CheckConnection()

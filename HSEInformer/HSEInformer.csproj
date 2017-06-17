@@ -124,6 +124,8 @@
     <Compile Include="Fragments\FeedFragment.cs" />
     <Compile Include="Fragments\Login and registration\LoginFragment.cs" />
     <Compile Include="Fragments\Login and registration\RegistrationFragment.cs" />
+    <Compile Include="GroupContentActivity.cs" />
+    <Compile Include="GroupContentPagerAdapter.cs" />
     <Compile Include="GroupViewModel\GroupAdapter.cs" />
     <Compile Include="GroupViewModel\GroupList.cs" />
     <Compile Include="GroupViewModel\GroupViewHolder.cs" />
@@ -167,6 +169,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\GroupsFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\GroupContentActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -228,6 +233,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\group_text.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Fragments\GroupContent\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -15,7 +15,7 @@ namespace HSEInformer.GroupViewModel
 {
     public class GroupList
     {
-        public List<Group> Groups { get; private set; }
+        public List<Group> Groups { get;  set; }
 
         public GroupList(List<Group> groups)
         {

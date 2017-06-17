@@ -227,37 +227,36 @@ namespace HSEInformer
 
                 HttpResponseMessage response = await client.GetAsync(requestUri);
 
-                if (response.IsSuccessStatusCode)
+                var responseString = await response.Content.ReadAsStringAsync();
+                var res = JsonConvert.DeserializeObject<Response<Group[]>>(responseString);
+
+                if (res != null && res.Ok)
                 {
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    var res = JsonConvert.DeserializeObject<Response<Group[]>>(responseString);
+                    var DTOgroups = res.Result;
 
-                    if (res != null && res.Ok)
+                    var modelGroups = DTOgroups.Select(g => new Model.Group
                     {
-                        var DTOgroups = res.Result;
+                        Id = g.Id,
+                        Name = g.Name,
+                        Type = g.GroupType == 0 ? Model.GroupType.AutoCreated : Model.GroupType.Custom,
+                    }).ToArray();
 
-                        var modelGroups = DTOgroups.Select(g => new Model.Group
-                        {
-                            Id = g.Id,
-                            Name = g.Name,
-                            Type = g.GroupType == 0 ? Model.GroupType.AutoCreated : Model.GroupType.Custom,
-                        }).ToArray();
-
-                        return modelGroups.ToList();
-
-                    }
-                    else
-                    {
-                        throw new WebException(res.Message);
-                    }
+                    return modelGroups.ToList();
 
                 }
                 else
                 {
-                    throw new WebException("Неполадки на сервере");
+                    throw new WebException(res.Message);
                 }
+
             }
+        }
+
+        public async Task GetGroupContent()
+        {
 
         }
+
     }
 }
+
