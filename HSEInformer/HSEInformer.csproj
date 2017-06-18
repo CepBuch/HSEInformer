@@ -256,7 +256,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\group_text.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_message.png" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\message_background.xml" />
   </ItemGroup>

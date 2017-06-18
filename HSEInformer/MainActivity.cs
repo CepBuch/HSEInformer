@@ -14,6 +14,7 @@ using Microsoft.AspNet.SignalR.Client;
 using Java.Lang;
 using System.Collections.Generic;
 using HSEInformer.Fragments;
+using System;
 
 namespace HSEInformer
 {
@@ -27,10 +28,8 @@ namespace HSEInformer
         DrawerLayout _drawerLayout;
         NavigationView _navigationView;
         ActionBarDrawerToggle _drawerToggle;
-        Button sendButton;
-        TextView lastMessageView;
-        EditText messageText;
-        
+        ApiManager _manager;
+
         string token;
 
         protected override void OnCreate(Bundle bundle)
@@ -41,15 +40,8 @@ namespace HSEInformer
             var host = "http://hseinformerserver.azurewebsites.net";
             _editor.PutString("host", host);
             _editor.Apply();
-
+            _manager = new ApiManager(host);
             SetContentView(Resource.Layout.Main);
-            //swipeRefreshLayout = 
-            //------------------------------------------
-            //sendButton = FindViewById<Button>(Resource.Id.sendMessage);
-            //lastMessageView = FindViewById<TextView>(Resource.Id.lastMessage);
-            //messageText = FindViewById<EditText>(Resource.Id.textMessage);
-            ////--------------------------------------
-            // Set our view from the "main" layout resource
 
             var authorized = CheckAuthorization();
 
@@ -58,52 +50,49 @@ namespace HSEInformer
                 CustomizeToolbarAndNavView();
                 ShowFeed();
                 //ConnectToHub(host);
-
-
-                
             }
         }
 
-        private async void ConnectToHub(string host)
-        {
-            //Путь к серверу
-            var hubConnection = new HubConnection(host, new Dictionary<string, string> { { "Authorization", "Bearer " + token } });
-            //Устанавливаем прокси-соединенние с хабом, который надо прослушивать (имя класса)
-            var chatHubProxy = hubConnection.CreateHubProxy("ChatHub");
+        //private async void ConnectToHub(string host)
+        //{
+        //    //Путь к серверу
+        //    var hubConnection = new HubConnection(host, new Dictionary<string, string> { { "Authorization", "Bearer " + token } });
+        //    //Устанавливаем прокси-соединенние с хабом, который надо прослушивать (имя класса)
+        //    var chatHubProxy = hubConnection.CreateHubProxy("ChatHub");
 
-            ////Событие, которое будет возникать при получении сообщения 
-            chatHubProxy.On<string, string>("UpdateChatMessage", (name, message) =>
-            {
-                this.RunOnUiThread(() =>
-                {
-                    lastMessageView.Text = message;
-                });
+        //    ////Событие, которое будет возникать при получении сообщения 
+        //    chatHubProxy.On<string, string>("UpdateChatMessage", (name, message) =>
+        //    {
+        //        this.RunOnUiThread(() =>
+        //        {
+        //            lastMessageView.Text = message;
+        //        });
 
-            });
+        //    });
 
 
 
-            //////По нажатии кнопки юзер отправляет сообщение
-            sendButton.Click += async (o, e) =>
-            {
-                await chatHubProxy.Invoke("SendMessage", new object[] { "A: ", messageText.Text });
-            };
+        //    //////По нажатии кнопки юзер отправляет сообщение
+        //    sendButton.Click += async (o, e) =>
+        //    {
+        //        await chatHubProxy.Invoke("SendMessage", new object[] { "A: ", messageText.Text });
+        //    };
 
-            // Соединяемся
-            try
-            {
-                await hubConnection.Start();
-            }
-            catch (Exception ex)
-            {
-                Toast.MakeText(this, "Не получается подсоединится к хабу: " + ex.Message, ToastLength.Long).Show();
-            }
-        }
+        //    // Соединяемся
+        //    try
+        //    {
+        //        await hubConnection.Start();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Toast.MakeText(this, "Не получается подсоединится к хабу: " + ex.Message, ToastLength.Long).Show();
+        //    }
+        //}
 
         private void ShowFeed()
         {
             var trans = SupportFragmentManager.BeginTransaction();
-            var categoriesContainerFragment = FeedFragment.newInstance(0);
+            var categoriesContainerFragment = FeedFragment.newInstance(-1);
             trans.Replace(Resource.Id.mainFragmentContainer, categoriesContainerFragment);
             trans.Commit();
         }
@@ -149,9 +138,126 @@ namespace HSEInformer
                         //TODO: Open add activity
                         return true;
                     }
+                case (Resource.Id.menu_message):
+                    {
+                        ShowGroupsList();
+                        return true;
+                    }
                 default:
                     return base.OnOptionsItemSelected(item);
             }
+        }
+
+        async void ShowGroupsList()
+        {
+            var token = _prefs.GetString("token", null);
+
+            if (token != null && CheckConnection())
+            {
+                var dialog = new Android.App.AlertDialog.Builder(this);
+
+                try
+                {
+
+                    var permissions = await _manager.GetUserPostPermissions(token);
+
+                    if (permissions != null)
+                    {
+                        dialog.SetTitle("Выберите группу");
+                        ArrayAdapter<Model.Group> arrayAdapter = new ArrayAdapter<Model.Group>(this, Android.Resource.Layout.SelectDialogSingleChoice);
+                        permissions.ForEach(p => arrayAdapter.Add(p));
+                        dialog.SetAdapter(arrayAdapter, (o, e) =>
+                        {
+                            var selectedGroup = arrayAdapter.GetItem(e.Which);
+                            OpenMesageInputWindow(token, selectedGroup);
+                        });
+                        dialog.SetNegativeButton("Отмена", delegate { });
+                        dialog.Show();
+                    }
+                    else
+                    {
+                        string message = "К сожаелнию, на данный момент нет ни одной группы, куда вы могли бы сделать объявление";
+                        dialog.SetMessage(message);
+                        dialog.SetPositiveButton("Ок", delegate { });
+                        dialog.Show();
+                    }
+
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    string message = "Ваши параметры авторизации устарели." +
+                        "\nВы будете возвращены на страницу авторизации, чтобы пройти процедуру авторизации заново";
+                    dialog.SetMessage(message);
+                    dialog.SetCancelable(false);
+                    dialog.SetPositiveButton("Ок", delegate
+                    {
+                        LogOut();
+
+                    });
+                    dialog.Show();
+                }
+                catch (System.Exception ex)
+                {
+
+                    string message = ex.Message;
+                    dialog.SetMessage(message);
+                    dialog.SetPositiveButton("Ок", delegate { });
+                    dialog.Show();
+                }
+            }
+        }
+        void OpenMesageInputWindow(string token, Model.Group group)
+        {
+            var dialog = new Android.App.AlertDialog.Builder(this);
+            dialog.SetTitle($"Отправка сообщения в группу {group?.Name}:");
+            View viewInflated = LayoutInflater.From(this).Inflate(Resource.Layout.MessageLayout, null);
+            var headerText = viewInflated.FindViewById<EditText>(Resource.Id.header);
+            var contentText = viewInflated.FindViewById<EditText>(Resource.Id.input);
+            dialog.SetView(viewInflated);
+            dialog.SetPositiveButton("Отправить", delegate { SendPost(token, group, headerText.Text, contentText.Text); });
+            dialog.SetNegativeButton("Отмена", delegate { });
+            dialog.Show();
+        }
+
+        async void SendPost(string token, Model.Group group, string theme, string content)
+        {
+            if (CheckConnection())
+            {
+                var dialog = new Android.App.AlertDialog.Builder(this);
+
+                try
+                {
+                    await _manager.SendMessage(token, theme, content, group.Id);
+                    string message = "Сообщеие было отправленно";
+                    dialog.SetMessage(message);
+                    dialog.SetPositiveButton("Ок", delegate { });
+                    dialog.Show();
+
+
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    string message = "Ваши параметры авторизации устарели." +
+                        "\nВы будете возвращены на страницу авторизации, чтобы пройти процедуру авторизации заново";
+                    dialog.SetMessage(message);
+                    dialog.SetCancelable(false);
+                    dialog.SetPositiveButton("Ок", delegate
+                    {
+                        LogOut();
+
+                    });
+                    dialog.Show();
+                }
+                catch (System.Exception ex)
+                {
+
+                    string message = ex.Message;
+                    dialog.SetMessage(message);
+                    dialog.SetPositiveButton("Ок", delegate { });
+                    dialog.Show();
+                }
+            }
+            ShowFeed();
         }
 
         private void _navigationView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
@@ -171,14 +277,7 @@ namespace HSEInformer
                     }
                 case Resource.Id.nav_profile:
                     {
-                        var dialog = new Android.App.AlertDialog.Builder(this);
-                        dialog.SetTitle("Отправка сообщения в группу TODO :");
-                        View viewInflated = LayoutInflater.From(this).Inflate(Resource.Layout.MessageLayout, null);
-                        var editText = viewInflated.FindViewById<EditText>(Resource.Id.input);
-                        dialog.SetView(viewInflated);
-                        dialog.SetPositiveButton("Отправить", delegate { Toast.MakeText(this, editText.Text, ToastLength.Long).Show(); });
-                        dialog.SetNegativeButton("Отмена", delegate { });
-                        dialog.Show();
+
                         break;
                     }
                 case Resource.Id.nav_feed:

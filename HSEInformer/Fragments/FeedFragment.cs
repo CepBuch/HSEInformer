@@ -63,29 +63,30 @@ namespace HSEInformer.Fragments
         {
             base.OnActivityCreated(savedInstanceState);
             var group_id = Arguments.GetInt(GROUP_ID);
-            if (group_id > 0)
-            {
-                ShowPosts(group_id);
-            }
+            ShowPosts(group_id);
+
         }
 
         public async void ShowPosts(int group_id)
         {
             var token = prefs.GetString("token", null);
 
-            if (token != null && (Activity as GroupContentActivity).CheckConnection())
+            if (token != null && ((Activity is GroupContentActivity && (Activity as GroupContentActivity).CheckConnection())
+                || (Activity is MainActivity && (Activity as MainActivity).CheckConnection())))
             {
                 try
                 {
                     progressBar.Visibility = ViewStates.Visible;
                     recyclerView.Visibility = ViewStates.Gone;
+
                     var posts = await _manager.GetPosts(token, group_id);
+
                     if (posts != null)
                     {
                         postsList.Posts = posts;
                         postsAdapter.NotifyDataSetChanged();
                     }
-                    
+
                 }
                 catch (UnauthorizedAccessException)
                 {
@@ -96,7 +97,15 @@ namespace HSEInformer.Fragments
                     dialog.SetCancelable(false);
                     dialog.SetPositiveButton("Ок", delegate
                     {
-                        (Activity as GroupContentActivity).Finish();
+                        if (Activity is GroupContentActivity)
+                        {
+                            (Activity as GroupContentActivity).Finish();
+                        }
+                        else if (Activity is MainActivity)
+                        {
+                            (Activity as MainActivity).LogOut();
+                        }
+                        
 
                     });
                     dialog.Show();

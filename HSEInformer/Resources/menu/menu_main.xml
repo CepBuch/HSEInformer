@@ -6,4 +6,9 @@
       android:icon="@drawable/ic_plus"
       app:showAsAction="always|collapseActionView"
       android:title="Добавить группу"/>
+  <item
+     android:id="@+id/menu_message"
+     android:icon="@drawable/ic_message"
+     app:showAsAction="always|collapseActionView"
+     android:title="Написать сообщение"/>
 </menu>

@@ -28,11 +28,13 @@ namespace HSEInformer
         const string UriGetGroups = "{0}/getGroups";
         const string UriCheckIfAdmin = "{0}/checkIfAdmin?id={1}";
         const string UriGetPosts = "{0}/getPosts?id={1}";
+        const string UriGetFeed = "{0}/getFeed";
         const string UriGetGroupMembers = "{0}/getGroupMembers?id={1}";
         const string UriGetAdministrator = "{0}/getAdministrator?id={1}";
-        const string UriGetPostPermissionRequests = "{0}/getPostPermissionRequests?id={1}";
-        const string UriGetPostPermissions = "{0}/getPostPermissions?id={1}";
-        
+        const string UriGetGroupPostPermissionRequests = "{0}/getGroupPostPermissionRequests?id={1}";
+        const string UriGetGroupPostPermissions = "{0}/getGroupPostPermissions?id={1}";
+        const string UriGetUserPostPermissions = "{0}/getUserPostPermissions";
+        const string UriSendMessage = "{0}/sendMessage";
 
 
         public ApiManager(string host)
@@ -252,7 +254,7 @@ namespace HSEInformer
                             Type = g.GroupType == 0 ? Model.GroupType.AutoCreated : Model.GroupType.Custom,
                         }).ToArray();
 
-                        return modelGroups.ToList();
+                        return modelGroups.OrderBy(g => g.Name).ToList();
                     }
                     else
                     {
@@ -313,7 +315,16 @@ namespace HSEInformer
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                string requestUri = string.Format(UriGetPosts, _host, id);
+                string requestUri;
+                if (id > 0)
+                {
+                    requestUri = string.Format(UriGetPosts, _host, id);
+                }
+                else
+                {
+                    requestUri = string.Format(UriGetFeed, _host);
+
+                }
 
                 HttpResponseMessage response = await client.GetAsync(requestUri);
 
@@ -328,7 +339,7 @@ namespace HSEInformer
                             Id = p.Id,
                             Theme = p.Theme,
                             Content = p.Content,
-                            Time = p.Time,
+                            Time = p.Time.ToLocalTime(),
                             User = new Model.User
                             {
                                 Email = p.User.Username,
@@ -409,7 +420,7 @@ namespace HSEInformer
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                string requestUri = string.Format(UriGetPostPermissions, _host, id);
+                string requestUri = string.Format(UriGetGroupPostPermissions, _host, id);
 
                 HttpResponseMessage response = await client.GetAsync(requestUri);
 
@@ -452,7 +463,7 @@ namespace HSEInformer
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                string requestUri = string.Format(UriGetPostPermissionRequests, _host, id);
+                string requestUri = string.Format(UriGetGroupPostPermissionRequests, _host, id);
 
                 HttpResponseMessage response = await client.GetAsync(requestUri);
 
@@ -517,6 +528,47 @@ namespace HSEInformer
                         throw new WebException("Неполадки на сервере");
                     }
                 }
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    throw new WebException("Неполадки на сервере");
+                }
+
+            }
+        }
+
+        public async Task<List<Model.Group>> GetUserPostPermissions(string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriGetUserPostPermissions, _host);
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<List<Group>>>(responseString);
+                    if (res != null && res.Ok)
+                    {
+                        var groups = res.Result.Select(g => new Model.Group
+                        {
+                           Id = g.Id,
+                           Name = g.Name,
+                           Type = g.GroupType == 0? Model.GroupType.AutoCreated : Model.GroupType.Custom
+                        }).ToList();
+                        return groups.OrderBy(g=> g.Name).ToList();
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     throw new UnauthorizedAccessException();
@@ -526,6 +578,32 @@ namespace HSEInformer
                     throw new WebException("Неполадки на сервере");
                 }
 
+            }
+        }
+
+        public async Task SendMessage(string token, string theme, string messageContent, int group_id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriSendMessage, _host);
+
+                var jsonString = JsonConvert.SerializeObject(new
+                {
+                    Theme = theme,
+                    Content = messageContent,
+                    Group_id = group_id
+                });
+
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(requestUri, content);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
             }
         }
 
