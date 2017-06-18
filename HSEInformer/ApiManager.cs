@@ -228,26 +228,37 @@ namespace HSEInformer
 
                 HttpResponseMessage response = await client.GetAsync(requestUri);
 
-                var responseString = await response.Content.ReadAsStringAsync();
-                var res = JsonConvert.DeserializeObject<Response<Group[]>>(responseString);
+                
 
-                if (res != null && res.Ok)
+                if(response.IsSuccessStatusCode)
                 {
-                    var DTOgroups = res.Result;
-
-                    var modelGroups = DTOgroups.Select(g => new Model.Group
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<Group[]>>(responseString);
+                    if (res != null && res.Ok)
                     {
-                        Id = g.Id,
-                        Name = g.Name,
-                        Type = g.GroupType == 0 ? Model.GroupType.AutoCreated : Model.GroupType.Custom,
-                    }).ToArray();
+                        var DTOgroups = res.Result;
 
-                    return modelGroups.ToList();
+                        var modelGroups = DTOgroups.Select(g => new Model.Group
+                        {
+                            Id = g.Id,
+                            Name = g.Name,
+                            Type = g.GroupType == 0 ? Model.GroupType.AutoCreated : Model.GroupType.Custom,
+                        }).ToArray();
 
+                        return modelGroups.ToList();
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
                 }
                 else
                 {
-                    throw new WebException(res.Message);
+                    throw new WebException("Неполадки на сервере");
                 }
 
             }
@@ -263,17 +274,26 @@ namespace HSEInformer
 
                 HttpResponseMessage response = await client.GetAsync(requestUri);
 
-                var responseString = await response.Content.ReadAsStringAsync();
-                var res = JsonConvert.DeserializeObject<Response<GroupContent>>(responseString);
-
-                if (res != null && res.Ok)
+                if (response.IsSuccessStatusCode)
                 {
-                    return res.Result;
-
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<GroupContent>>(responseString);
+                    if (res != null && res.Ok)
+                    {
+                        return res.Result;
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
                 }
                 else
                 {
-                    throw new WebException(res.Message);
+                    throw new WebException("Неполадки на сервере");
                 }
 
             }
