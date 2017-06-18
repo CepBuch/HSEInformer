@@ -2156,26 +2156,26 @@ namespace HSEInformer
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
-			// aapt resource value: 0x7f020074
-			public const int avd_hide_password_1 = 2130837620;
-			
 			// aapt resource value: 0x7f020075
-			public const int avd_hide_password_2 = 2130837621;
+			public const int avd_hide_password_1 = 2130837621;
 			
 			// aapt resource value: 0x7f020076
-			public const int avd_hide_password_3 = 2130837622;
+			public const int avd_hide_password_2 = 2130837622;
+			
+			// aapt resource value: 0x7f020077
+			public const int avd_hide_password_3 = 2130837623;
 			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
 			
-			// aapt resource value: 0x7f020077
-			public const int avd_show_password_1 = 2130837623;
-			
 			// aapt resource value: 0x7f020078
-			public const int avd_show_password_2 = 2130837624;
+			public const int avd_show_password_1 = 2130837624;
 			
 			// aapt resource value: 0x7f020079
-			public const int avd_show_password_3 = 2130837625;
+			public const int avd_show_password_2 = 2130837625;
+			
+			// aapt resource value: 0x7f02007a
+			public const int avd_show_password_3 = 2130837626;
 			
 			// aapt resource value: 0x7f020055
 			public const int button_background = 2130837589;
@@ -2232,43 +2232,46 @@ namespace HSEInformer
 			public const int Icon = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int navigation_empty_icon = 2130837607;
+			public const int message_background = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int notification_action_background = 2130837608;
+			public const int navigation_empty_icon = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int notification_bg = 2130837609;
+			public const int notification_action_background = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int notification_bg_low = 2130837610;
+			public const int notification_bg = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int notification_bg_low_normal = 2130837611;
+			public const int notification_bg_low = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int notification_bg_low_pressed = 2130837612;
+			public const int notification_bg_low_normal = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int notification_bg_normal = 2130837613;
+			public const int notification_bg_low_pressed = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int notification_bg_normal_pressed = 2130837614;
+			public const int notification_bg_normal = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int notification_icon_background = 2130837615;
-			
-			// aapt resource value: 0x7f020072
-			public const int notification_template_icon_bg = 2130837618;
-			
-			// aapt resource value: 0x7f020073
-			public const int notification_template_icon_low_bg = 2130837619;
+			public const int notification_bg_normal_pressed = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int notification_tile_bg = 2130837616;
+			public const int notification_icon_background = 2130837616;
+			
+			// aapt resource value: 0x7f020073
+			public const int notification_template_icon_bg = 2130837619;
+			
+			// aapt resource value: 0x7f020074
+			public const int notification_template_icon_low_bg = 2130837620;
 			
 			// aapt resource value: 0x7f020071
-			public const int notify_panel_notification_icon_bg = 2130837617;
+			public const int notification_tile_bg = 2130837617;
+			
+			// aapt resource value: 0x7f020072
+			public const int notify_panel_notification_icon_bg = 2130837618;
 			
 			static Drawable()
 			{
@@ -2286,8 +2289,8 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07008f
 			public const int LoginFragmentContainer = 2131165327;
 			
-			// aapt resource value: 0x7f07009c
-			public const int action0 = 2131165340;
+			// aapt resource value: 0x7f07009d
+			public const int action0 = 2131165341;
 			
 			// aapt resource value: 0x7f070064
 			public const int action_bar = 2131165284;
@@ -2310,17 +2313,17 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070041
 			public const int action_bar_title = 2131165249;
 			
-			// aapt resource value: 0x7f070099
-			public const int action_container = 2131165337;
+			// aapt resource value: 0x7f07009a
+			public const int action_container = 2131165338;
 			
 			// aapt resource value: 0x7f070065
 			public const int action_context_bar = 2131165285;
 			
-			// aapt resource value: 0x7f0700a0
-			public const int action_divider = 2131165344;
+			// aapt resource value: 0x7f0700a1
+			public const int action_divider = 2131165345;
 			
-			// aapt resource value: 0x7f07009a
-			public const int action_image = 2131165338;
+			// aapt resource value: 0x7f07009b
+			public const int action_image = 2131165339;
 			
 			// aapt resource value: 0x7f070003
 			public const int action_menu_divider = 2131165187;
@@ -2337,11 +2340,11 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070043
 			public const int action_mode_close_button = 2131165251;
 			
-			// aapt resource value: 0x7f07009b
-			public const int action_text = 2131165339;
+			// aapt resource value: 0x7f07009c
+			public const int action_text = 2131165340;
 			
-			// aapt resource value: 0x7f0700a9
-			public const int actions = 2131165353;
+			// aapt resource value: 0x7f0700aa
+			public const int actions = 2131165354;
 			
 			// aapt resource value: 0x7f070044
 			public const int activity_chooser_view_content = 2131165252;
@@ -2376,8 +2379,8 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07004b
 			public const int buttonPanel = 2131165259;
 			
-			// aapt resource value: 0x7f07009d
-			public const int cancel_action = 2131165341;
+			// aapt resource value: 0x7f07009e
+			public const int cancel_action = 2131165342;
 			
 			// aapt resource value: 0x7f070030
 			public const int center = 2131165232;
@@ -2391,8 +2394,8 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07005b
 			public const int checkbox = 2131165275;
 			
-			// aapt resource value: 0x7f0700a5
-			public const int chronometer = 2131165349;
+			// aapt resource value: 0x7f0700a6
+			public const int chronometer = 2131165350;
 			
 			// aapt resource value: 0x7f070039
 			public const int clip_horizontal = 2131165241;
@@ -2460,8 +2463,8 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070021
 			public const int end = 2131165217;
 			
-			// aapt resource value: 0x7f0700af
-			public const int end_padder = 2131165359;
+			// aapt resource value: 0x7f0700b0
+			public const int end_padder = 2131165360;
 			
 			// aapt resource value: 0x7f07002a
 			public const int enterAlways = 2131165226;
@@ -2502,8 +2505,8 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070049
 			public const int icon = 2131165257;
 			
-			// aapt resource value: 0x7f0700aa
-			public const int icon_group = 2131165354;
+			// aapt resource value: 0x7f0700ab
+			public const int icon_group = 2131165355;
 			
 			// aapt resource value: 0x7f070025
 			public const int ifRoom = 2131165221;
@@ -2511,14 +2514,17 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070046
 			public const int image = 2131165254;
 			
-			// aapt resource value: 0x7f0700a6
-			public const int info = 2131165350;
+			// aapt resource value: 0x7f0700a7
+			public const int info = 2131165351;
 			
 			// aapt resource value: 0x7f070086
 			public const int infoTxt = 2131165318;
 			
-			// aapt resource value: 0x7f0700b0
-			public const int initials_text = 2131165360;
+			// aapt resource value: 0x7f0700b1
+			public const int initials_text = 2131165361;
+			
+			// aapt resource value: 0x7f070099
+			public const int input = 2131165337;
 			
 			// aapt resource value: 0x7f070000
 			public const int item_touch_helper_previous_elevation = 2131165184;
@@ -2529,11 +2535,11 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070034
 			public const int left = 2131165236;
 			
-			// aapt resource value: 0x7f0700ab
-			public const int line1 = 2131165355;
+			// aapt resource value: 0x7f0700ac
+			public const int line1 = 2131165356;
 			
-			// aapt resource value: 0x7f0700ad
-			public const int line3 = 2131165357;
+			// aapt resource value: 0x7f0700ae
+			public const int line3 = 2131165358;
 			
 			// aapt resource value: 0x7f07000f
 			public const int listMode = 2131165199;
@@ -2550,14 +2556,14 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070097
 			public const int mainFragmentContainer = 2131165335;
 			
-			// aapt resource value: 0x7f0700b5
-			public const int masked = 2131165365;
-			
-			// aapt resource value: 0x7f07009f
-			public const int media_actions = 2131165343;
-			
 			// aapt resource value: 0x7f0700b6
-			public const int menu_plus = 2131165366;
+			public const int masked = 2131165366;
+			
+			// aapt resource value: 0x7f0700a0
+			public const int media_actions = 2131165344;
+			
+			// aapt resource value: 0x7f0700b7
+			public const int menu_plus = 2131165367;
 			
 			// aapt resource value: 0x7f070022
 			public const int middle = 2131165218;
@@ -2568,20 +2574,20 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07001a
 			public const int multiply = 2131165210;
 			
-			// aapt resource value: 0x7f0700ba
-			public const int nav_deadlines = 2131165370;
-			
 			// aapt resource value: 0x7f0700bb
-			public const int nav_exit = 2131165371;
+			public const int nav_deadlines = 2131165371;
 			
-			// aapt resource value: 0x7f0700b8
-			public const int nav_feed = 2131165368;
+			// aapt resource value: 0x7f0700bc
+			public const int nav_exit = 2131165372;
 			
 			// aapt resource value: 0x7f0700b9
-			public const int nav_groups = 2131165369;
+			public const int nav_feed = 2131165369;
 			
-			// aapt resource value: 0x7f0700b7
-			public const int nav_profile = 2131165367;
+			// aapt resource value: 0x7f0700ba
+			public const int nav_groups = 2131165370;
+			
+			// aapt resource value: 0x7f0700b8
+			public const int nav_profile = 2131165368;
 			
 			// aapt resource value: 0x7f070098
 			public const int nav_view = 2131165336;
@@ -2598,14 +2604,14 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070010
 			public const int normal = 2131165200;
 			
-			// aapt resource value: 0x7f0700a8
-			public const int notification_background = 2131165352;
+			// aapt resource value: 0x7f0700a9
+			public const int notification_background = 2131165353;
+			
+			// aapt resource value: 0x7f0700a3
+			public const int notification_main_column = 2131165347;
 			
 			// aapt resource value: 0x7f0700a2
-			public const int notification_main_column = 2131165346;
-			
-			// aapt resource value: 0x7f0700a1
-			public const int notification_main_column_container = 2131165345;
+			public const int notification_main_column_container = 2131165346;
 			
 			// aapt resource value: 0x7f070093
 			public const int orTextView = 2131165331;
@@ -2619,8 +2625,8 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070091
 			public const int password_text = 2131165329;
 			
-			// aapt resource value: 0x7f0700b1
-			public const int passwordconfirm_text = 2131165361;
+			// aapt resource value: 0x7f0700b2
+			public const int passwordconfirm_text = 2131165362;
 			
 			// aapt resource value: 0x7f070038
 			public const int pin = 2131165240;
@@ -2646,11 +2652,11 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070035
 			public const int right = 2131165237;
 			
-			// aapt resource value: 0x7f0700a7
-			public const int right_icon = 2131165351;
+			// aapt resource value: 0x7f0700a8
+			public const int right_icon = 2131165352;
 			
-			// aapt resource value: 0x7f0700a3
-			public const int right_side = 2131165347;
+			// aapt resource value: 0x7f0700a4
+			public const int right_side = 2131165348;
 			
 			// aapt resource value: 0x7f07001b
 			public const int screen = 2131165211;
@@ -2748,8 +2754,8 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070036
 			public const int start = 2131165238;
 			
-			// aapt resource value: 0x7f07009e
-			public const int status_bar_latest_event_content = 2131165342;
+			// aapt resource value: 0x7f07009f
+			public const int status_bar_latest_event_content = 2131165343;
 			
 			// aapt resource value: 0x7f07005e
 			public const int submenuarrow = 2131165278;
@@ -2766,11 +2772,11 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070011
 			public const int tabMode = 2131165201;
 			
-			// aapt resource value: 0x7f0700ae
-			public const int text = 2131165358;
+			// aapt resource value: 0x7f0700af
+			public const int text = 2131165359;
 			
-			// aapt resource value: 0x7f0700ac
-			public const int text2 = 2131165356;
+			// aapt resource value: 0x7f0700ad
+			public const int text2 = 2131165357;
 			
 			// aapt resource value: 0x7f070052
 			public const int textSpacerNoButtons = 2131165266;
@@ -2787,8 +2793,8 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07000d
 			public const int textinput_error = 2131165197;
 			
-			// aapt resource value: 0x7f0700a4
-			public const int time = 2131165348;
+			// aapt resource value: 0x7f0700a5
+			public const int time = 2131165349;
 			
 			// aapt resource value: 0x7f07004a
 			public const int title = 2131165258;
@@ -2805,8 +2811,8 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070089
 			public const int toolbar_groups = 2131165321;
 			
-			// aapt resource value: 0x7f0700b3
-			public const int toolbar_title = 2131165363;
+			// aapt resource value: 0x7f0700b4
+			public const int toolbar_title = 2131165364;
 			
 			// aapt resource value: 0x7f070029
 			public const int top = 2131165225;
@@ -2835,11 +2841,11 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07000e
 			public const int view_offset_helper = 2131165198;
 			
-			// aapt resource value: 0x7f0700b4
-			public const int visible = 2131165364;
+			// aapt resource value: 0x7f0700b5
+			public const int visible = 2131165365;
 			
-			// aapt resource value: 0x7f0700b2
-			public const int warning_text = 2131165362;
+			// aapt resource value: 0x7f0700b3
+			public const int warning_text = 2131165363;
 			
 			// aapt resource value: 0x7f070027
 			public const int withText = 2131165223;
@@ -3054,67 +3060,70 @@ namespace HSEInformer
 			public const int Main = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int notification_action = 2130903091;
+			public const int MessageLayout = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int notification_action_tombstone = 2130903092;
+			public const int notification_action = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int notification_media_action = 2130903093;
+			public const int notification_action_tombstone = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int notification_media_cancel_action = 2130903094;
+			public const int notification_media_action = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int notification_template_big_media = 2130903095;
+			public const int notification_media_cancel_action = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int notification_template_big_media_custom = 2130903096;
+			public const int notification_template_big_media = 2130903096;
 			
 			// aapt resource value: 0x7f030039
-			public const int notification_template_big_media_narrow = 2130903097;
+			public const int notification_template_big_media_custom = 2130903097;
 			
 			// aapt resource value: 0x7f03003a
-			public const int notification_template_big_media_narrow_custom = 2130903098;
+			public const int notification_template_big_media_narrow = 2130903098;
 			
 			// aapt resource value: 0x7f03003b
-			public const int notification_template_custom_big = 2130903099;
+			public const int notification_template_big_media_narrow_custom = 2130903099;
 			
 			// aapt resource value: 0x7f03003c
-			public const int notification_template_icon_group = 2130903100;
+			public const int notification_template_custom_big = 2130903100;
 			
 			// aapt resource value: 0x7f03003d
-			public const int notification_template_lines_media = 2130903101;
+			public const int notification_template_icon_group = 2130903101;
 			
 			// aapt resource value: 0x7f03003e
-			public const int notification_template_media = 2130903102;
+			public const int notification_template_lines_media = 2130903102;
 			
 			// aapt resource value: 0x7f03003f
-			public const int notification_template_media_custom = 2130903103;
+			public const int notification_template_media = 2130903103;
 			
 			// aapt resource value: 0x7f030040
-			public const int notification_template_part_chronometer = 2130903104;
+			public const int notification_template_media_custom = 2130903104;
 			
 			// aapt resource value: 0x7f030041
-			public const int notification_template_part_time = 2130903105;
+			public const int notification_template_part_chronometer = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int RegistrationFragment = 2130903106;
+			public const int notification_template_part_time = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int select_dialog_item_material = 2130903107;
+			public const int RegistrationFragment = 2130903107;
 			
 			// aapt resource value: 0x7f030044
-			public const int select_dialog_multichoice_material = 2130903108;
+			public const int select_dialog_item_material = 2130903108;
 			
 			// aapt resource value: 0x7f030045
-			public const int select_dialog_singlechoice_material = 2130903109;
+			public const int select_dialog_multichoice_material = 2130903109;
 			
 			// aapt resource value: 0x7f030046
-			public const int support_simple_spinner_dropdown_item = 2130903110;
+			public const int select_dialog_singlechoice_material = 2130903110;
 			
 			// aapt resource value: 0x7f030047
-			public const int toolbar = 2130903111;
+			public const int support_simple_spinner_dropdown_item = 2130903111;
+			
+			// aapt resource value: 0x7f030048
+			public const int toolbar = 2130903112;
 			
 			static Layout()
 			{

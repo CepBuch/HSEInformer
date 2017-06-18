@@ -171,7 +171,14 @@ namespace HSEInformer
                     }
                 case Resource.Id.nav_profile:
                     {
-                        Toast.MakeText(this, "Профиль", ToastLength.Long).Show();
+                        var dialog = new Android.App.AlertDialog.Builder(this);
+                        dialog.SetTitle("Отправка сообщения в группу TODO :");
+                        View viewInflated = LayoutInflater.From(this).Inflate(Resource.Layout.MessageLayout, null);
+                        var editText = viewInflated.FindViewById<EditText>(Resource.Id.input);
+                        dialog.SetView(viewInflated);
+                        dialog.SetPositiveButton("Отправить", delegate { Toast.MakeText(this, editText.Text, ToastLength.Long).Show(); });
+                        dialog.SetNegativeButton("Отмена", delegate { });
+                        dialog.Show();
                         break;
                     }
                 case Resource.Id.nav_feed:
