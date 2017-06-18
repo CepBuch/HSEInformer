@@ -26,6 +26,7 @@ namespace HSEInformer
         const string UriConfirmEmail = "{0}/confirmEmail";
         const string UriRegister = "{0}/register";
         const string UriGetGroups = "{0}/getGroups";
+        const string UriGetGroupContent = "{0}/getGroupContent?id={1}";
 
         public ApiManager(string host)
         {
@@ -252,9 +253,30 @@ namespace HSEInformer
             }
         }
 
-        public async Task GetGroupContent()
+        public async Task<GroupContent> GetGroupContent(string token,int id)
         {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
+                string requestUri = string.Format(UriGetGroupContent, _host,id);
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                var responseString = await response.Content.ReadAsStringAsync();
+                var res = JsonConvert.DeserializeObject<Response<GroupContent>>(responseString);
+
+                if (res != null && res.Ok)
+                {
+                    return res.Result;
+
+                }
+                else
+                {
+                    throw new WebException(res.Message);
+                }
+
+            }
         }
 
     }

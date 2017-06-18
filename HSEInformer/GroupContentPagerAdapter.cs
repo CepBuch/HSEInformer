@@ -29,14 +29,15 @@ namespace HSEInformer
             this.group_id = group_id;
             this.context = context;
             _prefs = PreferenceManager.GetDefaultSharedPreferences(context);
-            FillTabs();
+            FillTabs(group_id);
         }
 
-        public async void FillTabs()
+        public async void FillTabs(int group_id)
         {
             var host = _prefs.GetString("host", null);
             _manager = new ApiManager(host);
-
+            var token = _prefs.GetString("token", null);
+            var content = await _manager.GetGroupContent(token,group_id);
             //TODO await _manager.GetGroupContent();
 
             fragments = new List<Android.Support.V4.App.Fragment>
@@ -65,7 +66,7 @@ namespace HSEInformer
         {
             get
             {
-                return fragments.Count;
+                return fragments != null? fragments.Count : 0;
             }
         }
     }

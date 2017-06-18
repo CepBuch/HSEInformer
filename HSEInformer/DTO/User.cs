@@ -24,7 +24,7 @@ namespace HSEInformer.DTO
         [JsonProperty("patronymic")]
         public string Patronymic { get; set; }
 
-        [JsonProperty("email")]
+        [JsonProperty("username")]
         public string Email { get; set; }
     }
 }

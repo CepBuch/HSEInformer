@@ -56,8 +56,6 @@ namespace HSEInformer
             viewPager.Adapter = new GroupContentPagerAdapter(SupportFragmentManager, group_id, this);
             TabLayout tabLayout = FindViewById<TabLayout>(Resource.Id.tabLayout);
             tabLayout.SetupWithViewPager(viewPager);
-
-
         }   
 
         public bool CheckConnection()

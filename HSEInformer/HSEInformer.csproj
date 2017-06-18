@@ -115,6 +115,8 @@
   <ItemGroup>
     <Compile Include="ApiManager.cs" />
     <Compile Include="DTO\Group.cs" />
+    <Compile Include="DTO\GroupContent.cs" />
+    <Compile Include="DTO\Post.cs" />
     <Compile Include="DTO\Response.cs" />
     <Compile Include="DTO\Token.cs" />
     <Compile Include="DTO\User.cs" />
