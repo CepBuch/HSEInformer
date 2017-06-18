@@ -21,6 +21,7 @@ namespace HSEInformer.Fragments
 {
     public class FeedFragment : Android.Support.V4.App.Fragment
     {
+        SwipeRefreshLayout swiperefresh;
         private static string GROUP_ID = "group_id";
         RecyclerView recyclerView;
         RecyclerView.LayoutManager layoutManager;
@@ -56,6 +57,9 @@ namespace HSEInformer.Fragments
             recyclerView.SetAdapter(postsAdapter);
             layoutManager = new LinearLayoutManager(Activity);
             recyclerView.SetLayoutManager(layoutManager);
+            swiperefresh = view.FindViewById<SwipeRefreshLayout>(Resource.Id.swiperefresh);
+            var group_id = Arguments.GetInt(GROUP_ID);
+            swiperefresh.Refresh += (e, s) => ShowPosts(group_id);
             return view;
         }
 
@@ -123,6 +127,7 @@ namespace HSEInformer.Fragments
                 {
                     progressBar.Visibility = ViewStates.Gone;
                     recyclerView.Visibility = ViewStates.Visible;
+                    swiperefresh.Refreshing = false;
                 }
             }
         }

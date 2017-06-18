@@ -339,7 +339,7 @@ namespace HSEInformer
                             Id = p.Id,
                             Theme = p.Theme,
                             Content = p.Content,
-                            Time = p.Time.ToLocalTime(),
+                            Time = p.Time.ToLocalTime(),    
                             User = new Model.User
                             {
                                 Email = p.User.Username,

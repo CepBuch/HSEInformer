@@ -49,41 +49,46 @@ namespace HSEInformer
             {
                 CustomizeToolbarAndNavView();
                 ShowFeed();
-                //ConnectToHub(host);
             }
         }
 
-        //private async void ConnectToHub(string host)
+
+        //private async void ConnectToHub(string host, string token)
         //{
         //    //Путь к серверу
         //    var hubConnection = new HubConnection(host, new Dictionary<string, string> { { "Authorization", "Bearer " + token } });
+
+        //    //Токен
+        //    hubConnection.Headers.Add("Authorization", "Bearer" + token);
+
         //    //Устанавливаем прокси-соединенние с хабом, который надо прослушивать (имя класса)
-        //    var chatHubProxy = hubConnection.CreateHubProxy("ChatHub");
+        //    var chatHubProxy = hubConnection.CreateHubProxy("PostHub");
+
 
         //    ////Событие, которое будет возникать при получении сообщения 
         //    chatHubProxy.On<string, string>("UpdateChatMessage", (name, message) =>
         //    {
         //        this.RunOnUiThread(() =>
         //        {
-        //            lastMessageView.Text = message;
+        //            Toast.MakeText(this, $"{name} : {message}", ToastLength.Long).Show();
         //        });
 
         //    });
 
 
 
-        //    //////По нажатии кнопки юзер отправляет сообщение
-        //    sendButton.Click += async (o, e) =>
-        //    {
-        //        await chatHubProxy.Invoke("SendMessage", new object[] { "A: ", messageText.Text });
-        //    };
+        //    //Когда юзер отправит сообщение
+        //    OnMessageSent += async (message) =>
+        //     {
+        //         await chatHubProxy.Invoke("SendMessage", new object[] { message });
+        //     };
 
         //    // Соединяемся
         //    try
         //    {
         //        await hubConnection.Start();
         //    }
-        //    catch (Exception ex)
+        //    catch (System.Exception ex)
         //    {
         //        Toast.MakeText(this, "Не получается подсоединится к хабу: " + ex.Message, ToastLength.Long).Show();
         //    }
@@ -161,7 +166,7 @@ namespace HSEInformer
 
                     var permissions = await _manager.GetUserPostPermissions(token);
 
-                    if (permissions != null)
+                    if (permissions != null && permissions.Count > 0)
                     {
                         dialog.SetTitle("Выберите группу");
                         ArrayAdapter<Model.Group> arrayAdapter = new ArrayAdapter<Model.Group>(this, Android.Resource.Layout.SelectDialogSingleChoice);
@@ -228,7 +233,7 @@ namespace HSEInformer
                 try
                 {
                     await _manager.SendMessage(token, theme, content, group.Id);
-                    string message = "Сообщеие было отправленно";
+                    string message = "Сообщение было отправленно";
                     dialog.SetMessage(message);
                     dialog.SetPositiveButton("Ок", delegate { });
                     dialog.Show();

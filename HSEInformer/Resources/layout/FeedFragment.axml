@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:id="@+id/swiperefresh">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:scrollbars="vertical"
@@ -19,4 +20,4 @@
         android:gravity="center"
         android:indeterminateTintMode="src_in"
         android:indeterminateTint="@color/dark" />
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
