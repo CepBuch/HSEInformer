@@ -80,9 +80,12 @@ namespace HSEInformer.Fragments
                     progressBar.Visibility = ViewStates.Visible;
                     recyclerView.Visibility = ViewStates.Gone;
                     var groups = await _manager.GetGroups(token);
-                    groupsList.Groups = groups;
-                    groupsAdapter.NotifyDataSetChanged();
-                    groupsAdapter.ItemClick += groupsAdapter_ItemClick;
+                    if (groups != null)
+                    {
+                        groupsList.Groups = groups;
+                        groupsAdapter.NotifyDataSetChanged();
+                        groupsAdapter.ItemClick += groupsAdapter_ItemClick;
+                    }
 
                 }
                 catch (UnauthorizedAccessException)

@@ -120,6 +120,7 @@
     <Compile Include="DTO\Response.cs" />
     <Compile Include="DTO\Token.cs" />
     <Compile Include="DTO\User.cs" />
+    <Compile Include="Fragments\GroupContent\GroupMembersFragment.cs" />
     <Compile Include="Fragments\GroupsFragment.cs" />
     <Compile Include="Fragments\Login and registration\CodeFragment.cs" />
     <Compile Include="Fragments\Login and registration\ConfirmationFragment.cs" />
@@ -128,6 +129,9 @@
     <Compile Include="Fragments\Login and registration\RegistrationFragment.cs" />
     <Compile Include="GroupContentActivity.cs" />
     <Compile Include="GroupContentPagerAdapter.cs" />
+    <Compile Include="GroupMemberViewModel\GroupMemberAdapter.cs" />
+    <Compile Include="GroupMemberViewModel\GroupMemberList.cs" />
+    <Compile Include="GroupMemberViewModel\GroupMemberViewHolder.cs" />
     <Compile Include="GroupViewModel\GroupAdapter.cs" />
     <Compile Include="GroupViewModel\GroupList.cs" />
     <Compile Include="GroupViewModel\GroupViewHolder.cs" />
@@ -135,7 +139,11 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="MD5Converter.cs" />
     <Compile Include="Model\Group.cs" />
+    <Compile Include="Model\Post.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="PostViewModel\PostsAdapter.cs" />
+    <Compile Include="PostViewModel\PostsList.cs" />
+    <Compile Include="PostViewModel\PostViewHolder.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -177,6 +185,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MessageLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PostView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\GroupMemberView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\GroupMembersContainerFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -239,9 +256,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\group_text.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Fragments\GroupContent\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\message_background.xml" />
   </ItemGroup>

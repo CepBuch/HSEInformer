@@ -26,7 +26,14 @@ namespace HSEInformer
         const string UriConfirmEmail = "{0}/confirmEmail";
         const string UriRegister = "{0}/register";
         const string UriGetGroups = "{0}/getGroups";
-        const string UriGetGroupContent = "{0}/getGroupContent?id={1}";
+        const string UriCheckIfAdmin = "{0}/checkIfAdmin?id={1}";
+        const string UriGetPosts = "{0}/getPosts?id={1}";
+        const string UriGetGroupMembers = "{0}/getGroupMembers?id={1}";
+        const string UriGetAdministrator = "{0}/getAdministrator?id={1}";
+        const string UriGetPostPermissionRequests = "{0}/getPostPermissionRequests?id={1}";
+        const string UriGetPostPermissions = "{0}/getPostPermissions?id={1}";
+        
+
 
         public ApiManager(string host)
         {
@@ -165,7 +172,7 @@ namespace HSEInformer
                             Name = res.Result.Name,
                             Surname = res.Result.Surname,
                             Patronymic = res.Result.Patronymic,
-                            Email = res.Result.Email
+                            Email = res.Result.Username
                         };
 
                     }
@@ -228,9 +235,9 @@ namespace HSEInformer
 
                 HttpResponseMessage response = await client.GetAsync(requestUri);
 
-                
 
-                if(response.IsSuccessStatusCode)
+
+                if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
                     var res = JsonConvert.DeserializeObject<Response<Group[]>>(responseString);
@@ -264,23 +271,246 @@ namespace HSEInformer
             }
         }
 
-        public async Task<GroupContent> GetGroupContent(string token,int id)
+        public async Task<bool> CheckIfAdmin(string token, int id)
         {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                string requestUri = string.Format(UriGetGroupContent, _host,id);
+                string requestUri = string.Format(UriCheckIfAdmin, _host, id);
 
                 HttpResponseMessage response = await client.GetAsync(requestUri);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    var res = JsonConvert.DeserializeObject<Response<GroupContent>>(responseString);
+                    var res = JsonConvert.DeserializeObject<Response<bool>>(responseString);
                     if (res != null && res.Ok)
                     {
                         return res.Result;
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    throw new WebException("Неполадки на сервере");
+                }
+
+            }
+        }
+
+
+        public async Task<List<Model.Post>> GetPosts(string token, int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriGetPosts, _host, id);
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<List<Post>>>(responseString);
+                    if (res != null && res.Ok)
+                    {
+                        var modelPosts = res.Result.Select(p => new Model.Post
+                        {
+                            Id = p.Id,
+                            Theme = p.Theme,
+                            Content = p.Content,
+                            Time = p.Time,
+                            User = new Model.User
+                            {
+                                Email = p.User.Username,
+                                Name = p.User.Name,
+                                Surname = p.User.Surname,
+                                Patronymic = p.User.Patronymic
+                            }
+
+                        }).ToList();
+
+                        return modelPosts.OrderByDescending(p => p.Time).ToList();
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    throw new WebException("Неполадки на сервере");
+                }
+
+            }
+        }
+
+
+
+        public async Task<List<Model.User>> GetGroupMembers(string token, int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriGetGroupMembers, _host, id);
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<List<User>>>(responseString);
+                    if (res != null && res.Ok)
+                    {
+                        var modelMembers = res.Result.Select(m => new Model.User
+                        {
+                            Email = m.Username,
+                            Name = m.Name,
+                            Surname = m.Surname,
+                            Patronymic = m.Patronymic
+                        }).ToList();
+                        return modelMembers.OrderBy(m => m.Surname).ToList();
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    throw new WebException("Неполадки на сервере");
+                }
+
+            }
+        }
+
+
+        public async Task<List<Model.User>> GetPostPermissions(string token, int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriGetPostPermissions, _host, id);
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<List<User>>>(responseString);
+                    if (res != null && res.Ok)
+                    {
+                        var modelMembers = res.Result.Select(m => new Model.User
+                        {
+                            Email = m.Username,
+                            Name = m.Name,
+                            Surname = m.Surname,
+                            Patronymic = m.Patronymic
+                        }).ToList();
+                        return modelMembers.OrderBy(m => m.Surname).ToList();
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    throw new WebException("Неполадки на сервере");
+                }
+
+            }
+        }
+
+
+        public async Task<List<Model.User>> GetPostPermissionRequests(string token, int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriGetPostPermissionRequests, _host, id);
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<List<User>>>(responseString);
+                    if (res != null && res.Ok)
+                    {
+                        var modelMembers = res.Result.Select(m => new Model.User
+                        {
+                            Email = m.Username,
+                            Name = m.Name,
+                            Surname = m.Surname,
+                            Patronymic = m.Patronymic
+                        }).ToList();
+                        return modelMembers.OrderBy(m => m.Surname).ToList();
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    throw new WebException("Неполадки на сервере");
+                }
+
+            }
+        }
+
+        public async Task<Model.User> GetAdministrator(string token, int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriGetAdministrator, _host, id);
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<User>>(responseString);
+                    if (res.Ok)
+                    {
+                        return res.Result != null ? new Model.User
+                        {
+                            Email = res.Result.Username,
+                            Name = res.Result.Name,
+                            Surname = res.Result.Surname,
+                            Patronymic = res.Result.Patronymic
+                        } : null;
                     }
                     else
                     {

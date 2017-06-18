@@ -103,7 +103,7 @@ namespace HSEInformer
         private void ShowFeed()
         {
             var trans = SupportFragmentManager.BeginTransaction();
-            var categoriesContainerFragment = FeedFragment.newInstance();
+            var categoriesContainerFragment = FeedFragment.newInstance(0);
             trans.Replace(Resource.Id.mainFragmentContainer, categoriesContainerFragment);
             trans.Commit();
         }

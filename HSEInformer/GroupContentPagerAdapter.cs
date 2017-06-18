@@ -12,6 +12,8 @@ using Android.Widget;
 using Android.Support.V4.App;
 using Java.Lang;
 using Android.Preferences;
+using HSEInformer.Fragments;
+using HSEInformer.Fragments.GroupContent;
 
 namespace HSEInformer
 {
@@ -37,18 +39,26 @@ namespace HSEInformer
             var host = _prefs.GetString("host", null);
             _manager = new ApiManager(host);
             var token = _prefs.GetString("token", null);
-            var content = await _manager.GetGroupContent(token,group_id);
-            //TODO await _manager.GetGroupContent();
 
             fragments = new List<Android.Support.V4.App.Fragment>
             {
-                //RisksContainerFragment.newInstance(category_id) ,
+                FeedFragment.newInstance(group_id),
+                GroupMembersFragment.newInstance(group_id)
                 //CategoriesContainerFragment.newInstance(category_id)
             };
             titles = new List<string>
             {
-
+                "Объявления",
+                "Члены"
             };
+
+            var isAdministrator = await _manager.CheckIfAdmin(token, group_id);
+
+            if(isAdministrator)
+            {
+                Toast.MakeText(context, "administrator", ToastLength.Short).Show();
+            }
+
         }
 
 

@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="10dp">
-
-    <android.support.design.widget.TextInputLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:padding="10dp"
+  android:orientation="vertical">
+  <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Тема: "
+            android:layout_marginBottom="5dp"/>
+  <EditText
+        android:id="@+id/header"
+        android:translationY="5dp"
+        android:background="@drawable/message_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/input"
-            android:background="@drawable/message_background"
-            android:layout_width="match_parent"
-            android:textAlignment="textStart"
-            android:gravity="top"
-            android:layout_height="150dp"/>
-    </android.support.design.widget.TextInputLayout>
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:gravity="top"/>
+   <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Сообщение: "
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="5dp"/>
+  <EditText
+      android:id="@+id/input"
+      android:background="@drawable/message_background"
+      android:layout_width="match_parent"
+      android:textAlignment="textStart"
+      android:gravity="top"
+      android:layout_height="150dp"/>
+</LinearLayout>
