@@ -14,11 +14,13 @@ using Android.Preferences;
 using HSEInformer.GroupViewModel;
 using Android.Support.V7.Widget;
 using System.Threading.Tasks;
+using Android.Support.V4.Widget;
 
 namespace HSEInformer.Fragments
 {
     public class GroupsFragment : Android.Support.V4.App.Fragment
     {
+        SwipeRefreshLayout swiperefresh;
         ApiManager _manager;
         ISharedPreferences _prefs;
         RecyclerView recyclerView;
@@ -26,12 +28,15 @@ namespace HSEInformer.Fragments
         ProgressBar progressBar;
         GroupList groupsList;
         GroupAdapter groupsAdapter;
+        bool allgroups = false;
 
-        public static GroupsFragment newInstance()
+
+        public static GroupsFragment newInstance(bool allGroups)
         {
             GroupsFragment fragment = new GroupsFragment();
             Bundle args = new Bundle();
             fragment.Arguments = args;
+            args.PutBoolean("allgroups", allGroups);
             return fragment;
         }
 
@@ -42,6 +47,7 @@ namespace HSEInformer.Fragments
             var host = _prefs.GetString("host", null);
             _manager = new ApiManager(host);
             groupsList = new GroupList(new List<Model.Group>());
+
             base.OnCreate(savedInstanceState);
         }
 
@@ -57,7 +63,22 @@ namespace HSEInformer.Fragments
             recyclerView.SetAdapter(groupsAdapter);
             layoutManager = new LinearLayoutManager(Activity);
             recyclerView.SetLayoutManager(layoutManager);
+            swiperefresh = view.FindViewById<SwipeRefreshLayout>(Resource.Id.swiperefresh);
+            swiperefresh.Refresh += (e, s) => RefreshData();
             return view;
+        }
+
+        public void RefreshData()
+        {
+            if (!allgroups)
+            {
+                ShowUserGroups();
+            }
+            else
+            {
+                ShowAllGroups();
+            }
+            swiperefresh.Refreshing = false;
         }
 
 
@@ -65,21 +86,30 @@ namespace HSEInformer.Fragments
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-            ShowGroups();
+            allgroups = Arguments.GetBoolean("allgroups");
+            if (!allgroups)
+            {
+                ShowUserGroups();
+            }
+            else
+            {
+                ShowAllGroups();
+            }
         }
 
 
-        public async void ShowGroups()
+        public async void ShowUserGroups()
         {
             var token = _prefs.GetString("token", null);
 
-            if (token != null && (Activity as MainActivity).CheckConnection())
+            if (token != null && ((Activity is MainActivity && (Activity as MainActivity).CheckConnection())
+                || (Activity is AddActivity && (Activity as AddActivity).CheckConnection())))
             {
                 try
                 {
                     progressBar.Visibility = ViewStates.Visible;
                     recyclerView.Visibility = ViewStates.Gone;
-                    var groups = await _manager.GetGroups(token);
+                    var groups = await _manager.GetGroups(token, false);
                     if (groups != null)
                     {
                         groupsList.Groups = groups;
@@ -97,7 +127,14 @@ namespace HSEInformer.Fragments
                     dialog.SetCancelable(false);
                     dialog.SetPositiveButton("Ок", delegate
                     {
-                        (Activity as MainActivity).LogOut();
+                        if (Activity is MainActivity)
+                        {
+                            (Activity as MainActivity).LogOut();
+                        }
+                        else if (Activity is AddActivity)
+                        {
+                            (Activity as AddActivity).Finish();
+                        }
 
                     });
                     dialog.Show();
@@ -119,17 +156,135 @@ namespace HSEInformer.Fragments
             }
         }
 
+        public async void ShowAllGroups()
+        {
+            var token = _prefs.GetString("token", null);
 
+            if (token != null && ((Activity is MainActivity && (Activity as MainActivity).CheckConnection())
+                || (Activity is AddActivity && (Activity as AddActivity).CheckConnection())))
+            {
+                try
+                {
+                    progressBar.Visibility = ViewStates.Visible;
+                    recyclerView.Visibility = ViewStates.Gone;
+                    var groups = await _manager.GetGroups(token,true);
+                    if (groups != null)
+                    {
+                        groupsList.Groups = groups;
+                        groupsAdapter.NotifyDataSetChanged();
+                        groupsAdapter.ItemClick += groupsAdapter_ItemClick;
+                    }
 
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    var dialog = new Android.App.AlertDialog.Builder(Context);
+                    string message = "Ваши параметры авторизации устарели." +
+                        "\nВы будете возвращены на страницу авторизации, чтобы пройти процедуру авторизации заново";
+                    dialog.SetMessage(message);
+                    dialog.SetCancelable(false);
+                    dialog.SetPositiveButton("Ок", delegate
+                    {
+                        if (Activity is MainActivity)
+                        {
+                            (Activity as MainActivity).LogOut();
+                        }
+                        else if (Activity is AddActivity)
+                        {
+                            (Activity as AddActivity).Finish();
+                        }
 
+                    });
+                    dialog.Show();
+                }
+                catch (Exception ex)
+                {
 
-
+                    var dialog = new Android.App.AlertDialog.Builder(Context);
+                    string message = ex.Message;
+                    dialog.SetMessage(message);
+                    dialog.SetPositiveButton("Ок", delegate { });
+                    dialog.Show();
+                }
+                finally
+                {
+                    progressBar.Visibility = ViewStates.Gone;
+                    recyclerView.Visibility = ViewStates.Visible;
+                }
+            }
+        }
         private void groupsAdapter_ItemClick(Model.Group group)
         {
-            var intent = new Intent(Context, typeof(GroupContentActivity));
-            intent.PutExtra("group_id", group.Id);
-            intent.PutExtra("group_name", group.Name);
-            StartActivity(intent);
+            if (!allgroups)
+            {
+                var intent = new Intent(Context, typeof(GroupContentActivity));
+                intent.PutExtra("group_id", group.Id);
+                intent.PutExtra("group_name", group.Name);
+                StartActivity(intent);
+            }
+            else
+            {
+                SendPostPermission(group.Id);
+            }
+        }
+
+        private async void SendPostPermission(int id)
+        {
+            var token = _prefs.GetString("token", null);
+
+            if (token != null && ((Activity is MainActivity && (Activity as MainActivity).CheckConnection())
+                || (Activity is AddActivity && (Activity as AddActivity).CheckConnection())))
+            {
+                try
+                {
+                    progressBar.Visibility = ViewStates.Visible;
+                    recyclerView.Visibility = ViewStates.Gone;
+                    await _manager.SendRequest(token, id);
+
+                    var dialog = new Android.App.AlertDialog.Builder(Context);
+                    string message = "Запрос был послан";
+                    dialog.SetMessage(message);
+                    dialog.SetPositiveButton("Ок", delegate { });
+                    dialog.Show();
+
+
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    var dialog = new Android.App.AlertDialog.Builder(Context);
+                    string message = "Ваши параметры авторизации устарели." +
+                        "\nВы будете возвращены на страницу авторизации, чтобы пройти процедуру авторизации заново";
+                    dialog.SetMessage(message);
+                    dialog.SetCancelable(false);
+                    dialog.SetPositiveButton("Ок", delegate
+                    {
+                        if (Activity is MainActivity)
+                        {
+                            (Activity as MainActivity).LogOut();
+                        }
+                        else if (Activity is AddActivity)
+                        {
+                            (Activity as AddActivity).Finish();
+                        }
+
+                    });
+                    dialog.Show();
+                }
+                catch (Exception ex)
+                {
+
+                    var dialog = new Android.App.AlertDialog.Builder(Context);
+                    string message = ex.Message;
+                    dialog.SetMessage(message);
+                    dialog.SetPositiveButton("Ок", delegate { });
+                    dialog.Show();
+                }
+                finally
+                {
+                    progressBar.Visibility = ViewStates.Gone;
+                    recyclerView.Visibility = ViewStates.Visible;
+                }
+            }
         }
     }
 }

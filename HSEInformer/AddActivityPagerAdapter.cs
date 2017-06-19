@@ -13,6 +13,7 @@ using Android.Support.V4.App;
 using Android.Preferences;
 using HSEInformer.Fragments.AddAndSearch;
 using Java.Lang;
+using HSEInformer.Fragments;
 
 namespace HSEInformer
 {
@@ -40,7 +41,7 @@ namespace HSEInformer
             fragments = new List<Android.Support.V4.App.Fragment>
             {
                 InvitesFragment.newInstance(),
-                SearchGroupFragment.newInstance(),
+                GroupsFragment.newInstance(true),
                 CreateGroupFragment.newInstance()
             };
             titles = new List<string>

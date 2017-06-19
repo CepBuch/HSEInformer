@@ -294,7 +294,7 @@ namespace HSEInformer
                 case Resource.Id.nav_groups:
                     {
                         var trans = SupportFragmentManager.BeginTransaction();
-                        var categoriesContainerFragment = GroupsFragment.newInstance();
+                        var categoriesContainerFragment = GroupsFragment.newInstance(false);
                         trans.Replace(Resource.Id.mainFragmentContainer, categoriesContainerFragment);
                         trans.Commit();
                         break;

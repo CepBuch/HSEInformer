@@ -35,6 +35,9 @@ namespace HSEInformer
         const string UriGetGroupPostPermissions = "{0}/getGroupPostPermissions?id={1}";
         const string UriGetUserPostPermissions = "{0}/getUserPostPermissions";
         const string UriSendMessage = "{0}/sendMessage";
+        const string UriGetGroupsWithoutPermission = "{0}/getGroupsWithoutPermission";
+        const string UriSendPostPermissionRequest = "{0}/sendPostPermissionRequest";
+
 
 
         public ApiManager(string host)
@@ -227,13 +230,21 @@ namespace HSEInformer
         }
 
 
-        public async Task<List<Model.Group>> GetGroups(string token)
+        public async Task<List<Model.Group>> GetGroups(string token, bool withoutPermission)
         {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                string requestUri = string.Format(UriGetGroups, _host);
+                string requestUri;
+                if (withoutPermission)
+                {
+                    requestUri = string.Format(UriGetGroupsWithoutPermission, _host);
+                }
+                else
+                {
+                    requestUri = string.Format(UriGetGroups, _host);
+                }
 
                 HttpResponseMessage response = await client.GetAsync(requestUri);
 
@@ -594,6 +605,30 @@ namespace HSEInformer
                     Theme = theme,
                     Content = messageContent,
                     Group_id = group_id
+                });
+
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(requestUri, content);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
+        }
+
+        public async Task SendRequest(string token, int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriSendPostPermissionRequest, _host);
+
+                var jsonString = JsonConvert.SerializeObject(new
+                {
+                    Id = id
                 });
 
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");

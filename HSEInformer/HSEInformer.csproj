@@ -124,7 +124,6 @@
     <Compile Include="DTO\User.cs" />
     <Compile Include="Fragments\AddAndSearch\CreateGroupFragment.cs" />
     <Compile Include="Fragments\AddAndSearch\InvitesFragment.cs" />
-    <Compile Include="Fragments\AddAndSearch\SearchGroupFragment.cs" />
     <Compile Include="Fragments\GroupContent\GroupMembersFragment.cs" />
     <Compile Include="Fragments\GroupContent\RequestsFragment.cs" />
     <Compile Include="Fragments\GroupsFragment.cs" />
