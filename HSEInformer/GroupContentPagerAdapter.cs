@@ -56,7 +56,9 @@ namespace HSEInformer
 
             if(isAdministrator)
             {
-                Toast.MakeText(context, "administrator", ToastLength.Short).Show();
+                fragments.Add(RequestsFragment.newInstance(group_id));
+                titles.Add("Администрирование");
+                NotifyDataSetChanged();
             }
 
         }

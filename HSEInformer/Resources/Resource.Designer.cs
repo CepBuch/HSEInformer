@@ -2292,6 +2292,9 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070095
 			public const int LoginFragmentContainer = 2131165333;
 			
+			// aapt resource value: 0x7f0700c1
+			public const int acceptButton = 2131165377;
+			
 			// aapt resource value: 0x7f0700a4
 			public const int action0 = 2131165348;
 			
@@ -2430,6 +2433,9 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070054
 			public const int customPanel = 2131165268;
 			
+			// aapt resource value: 0x7f0700c2
+			public const int declineButton = 2131165378;
+			
 			// aapt resource value: 0x7f070062
 			public const int decor_content_parent = 2131165282;
 			
@@ -2526,11 +2532,14 @@ namespace HSEInformer
 			// aapt resource value: 0x7f0700ae
 			public const int info = 2131165358;
 			
-			// aapt resource value: 0x7f0700bc
-			public const int initials_text = 2131165372;
+			// aapt resource value: 0x7f0700bd
+			public const int initials_text = 2131165373;
 			
 			// aapt resource value: 0x7f0700a0
 			public const int input = 2131165344;
+			
+			// aapt resource value: 0x7f0700b8
+			public const int inviteButton = 2131165368;
 			
 			// aapt resource value: 0x7f070000
 			public const int item_touch_helper_previous_elevation = 2131165184;
@@ -2565,11 +2574,14 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07009d
 			public const int mainFragmentContainer = 2131165341;
 			
-			// aapt resource value: 0x7f0700c1
-			public const int masked = 2131165377;
+			// aapt resource value: 0x7f0700c5
+			public const int masked = 2131165381;
 			
 			// aapt resource value: 0x7f0700a7
 			public const int media_actions = 2131165351;
+			
+			// aapt resource value: 0x7f0700c0
+			public const int memberTextView = 2131165376;
 			
 			// aapt resource value: 0x7f070092
 			public const int member_name = 2131165330;
@@ -2577,11 +2589,11 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070093
 			public const int member_username = 2131165331;
 			
-			// aapt resource value: 0x7f0700c3
-			public const int menu_message = 2131165379;
+			// aapt resource value: 0x7f0700c7
+			public const int menu_message = 2131165383;
 			
-			// aapt resource value: 0x7f0700c2
-			public const int menu_plus = 2131165378;
+			// aapt resource value: 0x7f0700c6
+			public const int menu_plus = 2131165382;
 			
 			// aapt resource value: 0x7f070022
 			public const int middle = 2131165218;
@@ -2592,20 +2604,20 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07001a
 			public const int multiply = 2131165210;
 			
-			// aapt resource value: 0x7f0700c7
-			public const int nav_deadlines = 2131165383;
+			// aapt resource value: 0x7f0700cb
+			public const int nav_deadlines = 2131165387;
+			
+			// aapt resource value: 0x7f0700cc
+			public const int nav_exit = 2131165388;
+			
+			// aapt resource value: 0x7f0700c9
+			public const int nav_feed = 2131165385;
+			
+			// aapt resource value: 0x7f0700ca
+			public const int nav_groups = 2131165386;
 			
 			// aapt resource value: 0x7f0700c8
-			public const int nav_exit = 2131165384;
-			
-			// aapt resource value: 0x7f0700c5
-			public const int nav_feed = 2131165381;
-			
-			// aapt resource value: 0x7f0700c6
-			public const int nav_groups = 2131165382;
-			
-			// aapt resource value: 0x7f0700c4
-			public const int nav_profile = 2131165380;
+			public const int nav_profile = 2131165384;
 			
 			// aapt resource value: 0x7f07009e
 			public const int nav_view = 2131165342;
@@ -2643,23 +2655,23 @@ namespace HSEInformer
 			// aapt resource value: 0x7f070097
 			public const int password_text = 2131165335;
 			
-			// aapt resource value: 0x7f0700bd
-			public const int passwordconfirm_text = 2131165373;
+			// aapt resource value: 0x7f0700be
+			public const int passwordconfirm_text = 2131165374;
 			
 			// aapt resource value: 0x7f070038
 			public const int pin = 2131165240;
 			
+			// aapt resource value: 0x7f0700bc
+			public const int post_content = 2131165372;
+			
 			// aapt resource value: 0x7f0700bb
-			public const int post_content = 2131165371;
+			public const int post_from = 2131165371;
 			
 			// aapt resource value: 0x7f0700ba
-			public const int post_from = 2131165370;
+			public const int post_header = 2131165370;
 			
 			// aapt resource value: 0x7f0700b9
-			public const int post_header = 2131165369;
-			
-			// aapt resource value: 0x7f0700b8
-			public const int post_time = 2131165368;
+			public const int post_time = 2131165369;
 			
 			// aapt resource value: 0x7f07008c
 			public const int progressBar = 2131165324;
@@ -2850,8 +2862,8 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07008d
 			public const int toolbar_groups = 2131165325;
 			
-			// aapt resource value: 0x7f0700bf
-			public const int toolbar_title = 2131165375;
+			// aapt resource value: 0x7f0700c3
+			public const int toolbar_title = 2131165379;
 			
 			// aapt resource value: 0x7f070029
 			public const int top = 2131165225;
@@ -2880,11 +2892,11 @@ namespace HSEInformer
 			// aapt resource value: 0x7f07000e
 			public const int view_offset_helper = 2131165198;
 			
-			// aapt resource value: 0x7f0700c0
-			public const int visible = 2131165376;
+			// aapt resource value: 0x7f0700c4
+			public const int visible = 2131165380;
 			
-			// aapt resource value: 0x7f0700be
-			public const int warning_text = 2131165374;
+			// aapt resource value: 0x7f0700bf
+			public const int warning_text = 2131165375;
 			
 			// aapt resource value: 0x7f070027
 			public const int withText = 2131165223;
@@ -3162,28 +3174,34 @@ namespace HSEInformer
 			public const int notification_template_part_time = 2130903111;
 			
 			// aapt resource value: 0x7f030048
-			public const int PostView = 2130903112;
+			public const int PostPermissionsFragment = 2130903112;
 			
 			// aapt resource value: 0x7f030049
-			public const int RegistrationFragment = 2130903113;
+			public const int PostView = 2130903113;
 			
 			// aapt resource value: 0x7f03004a
-			public const int SearchGropFragment = 2130903114;
+			public const int RegistrationFragment = 2130903114;
 			
 			// aapt resource value: 0x7f03004b
-			public const int select_dialog_item_material = 2130903115;
+			public const int RequestView = 2130903115;
 			
 			// aapt resource value: 0x7f03004c
-			public const int select_dialog_multichoice_material = 2130903116;
+			public const int SearchGropFragment = 2130903116;
 			
 			// aapt resource value: 0x7f03004d
-			public const int select_dialog_singlechoice_material = 2130903117;
+			public const int select_dialog_item_material = 2130903117;
 			
 			// aapt resource value: 0x7f03004e
-			public const int support_simple_spinner_dropdown_item = 2130903118;
+			public const int select_dialog_multichoice_material = 2130903118;
 			
 			// aapt resource value: 0x7f03004f
-			public const int toolbar = 2130903119;
+			public const int select_dialog_singlechoice_material = 2130903119;
+			
+			// aapt resource value: 0x7f030050
+			public const int support_simple_spinner_dropdown_item = 2130903120;
+			
+			// aapt resource value: 0x7f030051
+			public const int toolbar = 2130903121;
 			
 			static Layout()
 			{

@@ -126,6 +126,7 @@
     <Compile Include="Fragments\AddAndSearch\InvitesFragment.cs" />
     <Compile Include="Fragments\AddAndSearch\SearchGroupFragment.cs" />
     <Compile Include="Fragments\GroupContent\GroupMembersFragment.cs" />
+    <Compile Include="Fragments\GroupContent\RequestsFragment.cs" />
     <Compile Include="Fragments\GroupsFragment.cs" />
     <Compile Include="Fragments\Login and registration\CodeFragment.cs" />
     <Compile Include="Fragments\Login and registration\ConfirmationFragment.cs" />
@@ -149,6 +150,8 @@
     <Compile Include="PostViewModel\PostsAdapter.cs" />
     <Compile Include="PostViewModel\PostsList.cs" />
     <Compile Include="PostViewModel\PostViewHolder.cs" />
+    <Compile Include="RequestViewModel\RequestAdapter.cs" />
+    <Compile Include="RequestViewModel\RequestViewHolder.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -211,6 +214,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\InvitesFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PostPermissionsFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\RequestView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
