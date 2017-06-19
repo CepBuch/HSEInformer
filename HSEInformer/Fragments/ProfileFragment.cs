@@ -91,7 +91,6 @@ namespace HSEInformer.Fragments
                     dialog.SetPositiveButton("Ок", delegate { });
                     dialog.Show();
                 }
-
             }
         }
     }

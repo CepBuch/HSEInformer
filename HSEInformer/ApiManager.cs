@@ -39,6 +39,9 @@ namespace HSEInformer
         const string UriSendPostPermissionRequest = "{0}/sendPostPermissionRequest";
         const string UriAnswerRequest = "{0}/sendRequestAnswer";
         const string UriGetProfile = "{0}/getProfile";
+        const string UriGetGroupNames = "{0}/getGroupNames";
+        const string UriCreateGroup = "{0}/createGroup";
+        const string UriGetUsersToInvite = "{0}/getUsersToInvite?id={1}";
 
 
         public ApiManager(string host)
@@ -709,6 +712,109 @@ namespace HSEInformer
 
             }
 
+        }
+
+        public async Task<List<string>> GetGroupNames(string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriGetGroupNames, _host);
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<List<string>>>(responseString);
+
+                    if (res != null && res.Ok)
+                    {
+                        return res.Result;
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    throw new WebException("Неполадки на сервере");
+                }
+
+            }
+        }
+
+        public async Task CreateGroup(string token, string group_name)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriCreateGroup, _host);
+
+                var jsonString = JsonConvert.SerializeObject(new
+                {
+                    Name = group_name
+                });
+
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(requestUri, content);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+
+            }
+        }
+
+        public async Task<List<Model.User>> GetUsersToInvite(string token, int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriGetUsersToInvite, _host, id);
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<List<User>>>(responseString);
+                    if (res != null && res.Ok)
+                    {
+                        var modelMembers = res.Result.Select(m => new Model.User
+                        {
+                            Email = m.Username,
+                            Name = m.Name,
+                            Surname = m.Surname,
+                            Patronymic = m.Patronymic
+                        }).ToList();
+                        return modelMembers.OrderBy(m => m.Surname).ToList();
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    throw new WebException("Неполадки на сервере");
+                }
+
+            }
         }
     }
 }

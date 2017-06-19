@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/memberTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Фамилия И.О. (edu.hse.reasda)"
+        android:textSize="18sp"
+        android:gravity="center" />
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center">
+        <Button
+            android:text="Пригласить"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/inviteButton"
+            style="@style/hse_button" />
+    </LinearLayout>
+</LinearLayout>

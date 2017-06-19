@@ -59,6 +59,12 @@ namespace HSEInformer.Fragments.GroupContent
             progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar);
             inviteButton = view.FindViewById<Button>(Resource.Id.inviteButton);
             inviteButton.Enabled = isCustomGroup;
+            inviteButton.Click += delegate
+            {
+                var intent = new Intent(Activity, typeof(InviteToGroupActivity));
+                intent.PutExtra("group_id", group_id);
+                StartActivity(intent);
+            };
             contentLayout = view.FindViewById<LinearLayout>(Resource.Id.mainContentLayout);
             recyclerView = view.FindViewById<RecyclerView>(Resource.Id.recycler_view);
             requestsAdapter = new RequestAdapter(requestsList);

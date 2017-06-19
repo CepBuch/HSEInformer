@@ -141,6 +141,9 @@
     <Compile Include="GroupViewModel\GroupAdapter.cs" />
     <Compile Include="GroupViewModel\GroupList.cs" />
     <Compile Include="GroupViewModel\GroupViewHolder.cs" />
+    <Compile Include="InviteToGroupActivity.cs" />
+    <Compile Include="InviteViewModek\InviteAdapter.cs" />
+    <Compile Include="InviteViewModek\InviteViewHolder.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MD5Converter.cs" />
@@ -223,6 +226,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ProfileFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\InviteView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\InviteActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

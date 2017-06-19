@@ -3,4 +3,29 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B4CED6"/>
+    android:gravity="center">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Создание нового канала"
+        android:gravity="center"
+        android:textSize="20sp" />
+    <EditText
+        android:inputType="text"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:hint="Название канала"
+        android:maxLines="1"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_margin="20dp"
+        android:id="@+id/groupNametxt" />
+    <Button
+        android:text="Создать"
+        android:enabled="false"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/createButton"
+        style="@style/hse_button" />
+</LinearLayout>
