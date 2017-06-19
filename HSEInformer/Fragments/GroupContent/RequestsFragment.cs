@@ -33,11 +33,12 @@ namespace HSEInformer.Fragments.GroupContent
         LinearLayout contentLayout;
 
 
-        public static RequestsFragment newInstance(int group_id)
+        public static RequestsFragment newInstance(int group_id, bool isCustomGroup)
         {
             RequestsFragment fragment = new RequestsFragment();
             Bundle args = new Bundle();
             args.PutInt(GROUP_ID, group_id);
+            args.PutBoolean("is_custom_group", isCustomGroup);
             fragment.Arguments = args;
             return fragment;
         }
@@ -53,9 +54,11 @@ namespace HSEInformer.Fragments.GroupContent
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var group_id = Arguments.GetInt(GROUP_ID);
+            var isCustomGroup = Arguments.GetBoolean("is_custom_group");
             var view = inflater.Inflate(Resource.Layout.PostPermissionsFragment, container, false);
             progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar);
             inviteButton = view.FindViewById<Button>(Resource.Id.inviteButton);
+            inviteButton.Enabled = isCustomGroup;
             contentLayout = view.FindViewById<LinearLayout>(Resource.Id.mainContentLayout);
             recyclerView = view.FindViewById<RecyclerView>(Resource.Id.recycler_view);
             requestsAdapter = new RequestAdapter(requestsList);

@@ -132,6 +132,7 @@
     <Compile Include="Fragments\FeedFragment.cs" />
     <Compile Include="Fragments\Login and registration\LoginFragment.cs" />
     <Compile Include="Fragments\Login and registration\RegistrationFragment.cs" />
+    <Compile Include="Fragments\ProfileFragment.cs" />
     <Compile Include="GroupContentActivity.cs" />
     <Compile Include="GroupContentPagerAdapter.cs" />
     <Compile Include="GroupMemberViewModel\GroupMemberAdapter.cs" />
@@ -221,6 +222,9 @@
     <AndroidResource Include="Resources\layout\RequestView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\ProfileFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -286,6 +290,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\message_background.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\unknown.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

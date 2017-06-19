@@ -220,6 +220,7 @@ namespace HSEInformer.Fragments
                 var intent = new Intent(Context, typeof(GroupContentActivity));
                 intent.PutExtra("group_id", group.Id);
                 intent.PutExtra("group_name", group.Name);
+                intent.PutExtra("group_type", (int)group.Type);
                 StartActivity(intent);
             }
             else

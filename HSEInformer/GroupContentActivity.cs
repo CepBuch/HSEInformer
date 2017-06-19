@@ -31,14 +31,15 @@ namespace HSEInformer
             SetContentView(Resource.Layout.GroupContentActivity);
 
             var group_id = Intent.GetIntExtra("group_id", -1);
+            var group_type = Intent.GetIntExtra("group_type", -1);
 
             if(group_id > 0)
             {
-                CustomizeToolbarAndViewPager(group_id);
+                CustomizeToolbarAndViewPager(group_id, group_type);
             }
         }
 
-        public void CustomizeToolbarAndViewPager(int group_id)
+        public void CustomizeToolbarAndViewPager(int group_id, int group_type)
         {
             toolbar = FindViewById<SupportToolbar>(Resource.Id.toolbar_groups);
             TextView toolbarTitle = FindViewById<TextView>(Resource.Id.toolbar_title);
@@ -53,7 +54,7 @@ namespace HSEInformer
                 toolbarTitle.Text = group_name;
                 
             viewPager = FindViewById<ViewPager>(Resource.Id.viewPager);
-            viewPager.Adapter = new GroupContentPagerAdapter(SupportFragmentManager, group_id, this);
+            viewPager.Adapter = new GroupContentPagerAdapter(SupportFragmentManager, group_id, group_type, this);
             TabLayout tabLayout = FindViewById<TabLayout>(Resource.Id.tabLayout);
             tabLayout.SetupWithViewPager(viewPager);
         }   

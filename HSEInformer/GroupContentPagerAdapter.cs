@@ -26,15 +26,15 @@ namespace HSEInformer
         int group_id;
         Context context;
 
-        public GroupContentPagerAdapter(Android.Support.V4.App.FragmentManager fm, int group_id, Context context) : base(fm)
+        public GroupContentPagerAdapter(Android.Support.V4.App.FragmentManager fm, int group_id, int group_type, Context context) : base(fm)
         {
             this.group_id = group_id;
             this.context = context;
             _prefs = PreferenceManager.GetDefaultSharedPreferences(context);
-            FillTabs(group_id);
+            FillTabs(group_id, group_type);
         }
 
-        public async void FillTabs(int group_id)
+        public async void FillTabs(int group_id, int group_type)
         {
             var host = _prefs.GetString("host", null);
             _manager = new ApiManager(host);
@@ -54,9 +54,9 @@ namespace HSEInformer
 
             var isAdministrator = await _manager.CheckIfAdmin(token, group_id);
 
-            if(isAdministrator)
+            if (isAdministrator)
             {
-                fragments.Add(RequestsFragment.newInstance(group_id));
+                fragments.Add(RequestsFragment.newInstance(group_id, group_type == 1));
                 titles.Add("Администрирование");
                 NotifyDataSetChanged();
             }
@@ -78,7 +78,7 @@ namespace HSEInformer
         {
             get
             {
-                return fragments != null? fragments.Count : 0;
+                return fragments != null ? fragments.Count : 0;
             }
         }
     }

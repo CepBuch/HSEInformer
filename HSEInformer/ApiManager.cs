@@ -38,7 +38,7 @@ namespace HSEInformer
         const string UriGetGroupsWithoutPermission = "{0}/getGroupsWithoutPermission";
         const string UriSendPostPermissionRequest = "{0}/sendPostPermissionRequest";
         const string UriAnswerRequest = "{0}/sendRequestAnswer";
-
+        const string UriGetProfile = "{0}/getProfile";
 
 
         public ApiManager(string host)
@@ -351,7 +351,7 @@ namespace HSEInformer
                             Id = p.Id,
                             Theme = p.Theme,
                             Content = p.Content,
-                            Time = p.Time.ToLocalTime(),    
+                            Time = p.Time.ToLocalTime(),
                             User = new Model.User
                             {
                                 Email = p.User.Username,
@@ -570,11 +570,11 @@ namespace HSEInformer
                     {
                         var groups = res.Result.Select(g => new Model.Group
                         {
-                           Id = g.Id,
-                           Name = g.Name,
-                           Type = g.GroupType == 0? Model.GroupType.AutoCreated : Model.GroupType.Custom
+                            Id = g.Id,
+                            Name = g.Name,
+                            Type = g.GroupType == 0 ? Model.GroupType.AutoCreated : Model.GroupType.Custom
                         }).ToList();
-                        return groups.OrderBy(g=> g.Name).ToList();
+                        return groups.OrderBy(g => g.Name).ToList();
                     }
                     else
                     {
@@ -669,6 +669,47 @@ namespace HSEInformer
             }
         }
 
+        public async Task<Model.User> GetProfile(string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriGetProfile, _host);
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<User>>(responseString);
+                    if (res.Ok)
+                    {
+                        return res.Result != null ? new Model.User
+                        {
+                            Email = res.Result.Username,
+                            Name = res.Result.Name,
+                            Surname = res.Result.Surname,
+                            Patronymic = res.Result.Patronymic
+                        } : null;
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    throw new WebException("Неполадки на сервере");
+                }
+
+            }
+
+        }
     }
 }
 

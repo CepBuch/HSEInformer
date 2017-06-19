@@ -283,7 +283,11 @@ namespace HSEInformer
                     }
                 case Resource.Id.nav_profile:
                     {
-
+                        var trans = SupportFragmentManager.BeginTransaction();
+                        var categoriesContainerFragment = ProfileFragment.newInstance();
+                        trans.Replace(Resource.Id.mainFragmentContainer, categoriesContainerFragment);
+                        trans.Commit();
+                        break;
                         break;
                     }
                 case Resource.Id.nav_feed:

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <ImageView
+        android:src="@drawable/unknown"
+        android:maxWidth="400dp"
+        android:maxHeight="200dp"
+        android:adjustViewBounds="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:scaleType="centerInside"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/usenameTextView"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:text="Логин:"
+        android:textSize="18sp"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/surnameTextView"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:text="Фамилия:"
+        android:textSize="18sp"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Имя:"
+        android:textSize="18sp"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/patrTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Отчество: "
+        android:textSize="18sp"
+        android:gravity="center" />
+</LinearLayout>
