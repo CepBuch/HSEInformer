@@ -52,18 +52,18 @@ namespace HSEInformer.Fragments.GroupContent
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            var group_id = Arguments.GetInt(GROUP_ID);
             var view = inflater.Inflate(Resource.Layout.PostPermissionsFragment, container, false);
             progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar);
             inviteButton = view.FindViewById<Button>(Resource.Id.inviteButton);
             contentLayout = view.FindViewById<LinearLayout>(Resource.Id.mainContentLayout);
             recyclerView = view.FindViewById<RecyclerView>(Resource.Id.recycler_view);
             requestsAdapter = new RequestAdapter(requestsList);
-            requestsAdapter.ItemClick += (user, accpted) => Toast.MakeText(Context, $"{accpted} for {user}", ToastLength.Short).Show();
+            requestsAdapter.ItemClick += (user, accepted) => AnswerRequest(user.Email, group_id,accepted);
             recyclerView.SetAdapter(requestsAdapter);
             layoutManager = new LinearLayoutManager(Activity);
             recyclerView.SetLayoutManager(layoutManager);
             swiperefresh = view.FindViewById<SwipeRefreshLayout>(Resource.Id.swiperefresh);
-            var group_id = Arguments.GetInt(GROUP_ID);
             swiperefresh.Refresh += (e, s) => ShowRequests(group_id);
             return view;
         }
@@ -125,6 +125,51 @@ namespace HSEInformer.Fragments.GroupContent
                     progressBar.Visibility = ViewStates.Gone;
                     contentLayout.Visibility = ViewStates.Visible;
                     swiperefresh.Refreshing = false;
+                }
+            }
+        }
+
+
+        private async void AnswerRequest(string username, int group_id, bool accepted)
+        {
+            var token = prefs.GetString("token", null);
+
+            if (token != null && (Activity as GroupContentActivity).CheckConnection())
+            {
+                try
+                {
+                    await _manager.AnswerRequest(token, username, group_id, accepted);
+
+                    var dialog = new Android.App.AlertDialog.Builder(Context);
+                    string message = string.Format("Запрос от {0} был {1}", username, accepted ? "принят" : "отвергнут");
+                    dialog.SetMessage(message);
+                    dialog.SetCancelable(false);
+                    dialog.SetPositiveButton("Ок", delegate { Activity.Recreate(); });
+                    dialog.Show();
+
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    var dialog = new Android.App.AlertDialog.Builder(Context);
+                    string message = "Ваши параметры авторизации устарели." +
+                        "\nВы будете возвращены на страницу авторизации, чтобы пройти процедуру авторизации заново";
+                    dialog.SetMessage(message);
+                    dialog.SetCancelable(false);
+                    dialog.SetPositiveButton("Ок", delegate
+                    {
+                        (Activity as GroupContentActivity).Finish();
+
+                    });
+                    dialog.Show();
+                }
+                catch (Exception ex)
+                {
+
+                    var dialog = new Android.App.AlertDialog.Builder(Context);
+                    string message = ex.Message;
+                    dialog.SetMessage(message);
+                    dialog.SetPositiveButton("Ок", delegate { });
+                    dialog.Show();
                 }
             }
         }

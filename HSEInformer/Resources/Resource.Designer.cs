@@ -2605,10 +2605,7 @@ namespace HSEInformer
 			public const int multiply = 2131165210;
 			
 			// aapt resource value: 0x7f0700cb
-			public const int nav_deadlines = 2131165387;
-			
-			// aapt resource value: 0x7f0700cc
-			public const int nav_exit = 2131165388;
+			public const int nav_exit = 2131165387;
 			
 			// aapt resource value: 0x7f0700c9
 			public const int nav_feed = 2131165385;

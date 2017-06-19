@@ -37,6 +37,7 @@ namespace HSEInformer
         const string UriSendMessage = "{0}/sendMessage";
         const string UriGetGroupsWithoutPermission = "{0}/getGroupsWithoutPermission";
         const string UriSendPostPermissionRequest = "{0}/sendPostPermissionRequest";
+        const string UriAnswerRequest = "{0}/sendRequestAnswer";
 
 
 
@@ -629,6 +630,32 @@ namespace HSEInformer
                 var jsonString = JsonConvert.SerializeObject(new
                 {
                     Id = id
+                });
+
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(requestUri, content);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
+        }
+
+        public async Task AnswerRequest(string token, string username, int group_id, bool accepted)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriAnswerRequest, _host);
+
+                var jsonString = JsonConvert.SerializeObject(new
+                {
+                    GroupId = group_id,
+                    UserName = username,
+                    Accepted = accepted
                 });
 
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");

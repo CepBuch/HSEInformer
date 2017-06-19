@@ -44,7 +44,7 @@ namespace HSEInformer.RequestViewModel
             if (holder is RequestViewHolder)
             {
                 RequestViewHolder rh = holder as RequestViewHolder;
-                
+                rh.MemberTextView.Text = $"{_membersList[position].Surname} {_membersList[position].Name[0]}. {_membersList[position].Patronymic}. ({_membersList[position].Email})";
             }
         }
 

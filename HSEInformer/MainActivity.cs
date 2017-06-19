@@ -299,11 +299,6 @@ namespace HSEInformer
                         trans.Commit();
                         break;
                     }
-                case Resource.Id.nav_deadlines:
-                    {
-                        Toast.MakeText(this, "Дедлайны", ToastLength.Long).Show();
-                        break;
-                    }
             }
             e.MenuItem.SetChecked(true);
             _drawerLayout.CloseDrawers();
