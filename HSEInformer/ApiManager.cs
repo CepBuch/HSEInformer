@@ -42,6 +42,7 @@ namespace HSEInformer
         const string UriGetGroupNames = "{0}/getGroupNames";
         const string UriCreateGroup = "{0}/createGroup";
         const string UriGetUsersToInvite = "{0}/getUsersToInvite?id={1}";
+        const string UriSendInvite = "{0}/sendInvite";
 
 
         public ApiManager(string host)
@@ -814,6 +815,31 @@ namespace HSEInformer
                     throw new WebException("Неполадки на сервере");
                 }
 
+            }
+        }
+
+        public async Task SendInvite(string token, int id, string username)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format(UriSendInvite, _host);
+
+                var jsonString = JsonConvert.SerializeObject(new
+                {
+                    UserName = username,
+                    GroupId = id
+                });
+
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(requestUri, content);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
             }
         }
     }

@@ -31,7 +31,7 @@ namespace HSEInformer
         SupportToolbar toolbar;
         InviteAdapter inviteAdapter;
         GroupMemberList invitesList;
-
+        private int id;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             SetContentView(Resource.Layout.InviteActivity);
@@ -44,6 +44,7 @@ namespace HSEInformer
             if(group_id > 0)
             {
                 ShowUsers(group_id);
+                id = group_id;
             }
             
             base.OnCreate(savedInstanceState);
@@ -70,9 +71,45 @@ namespace HSEInformer
 
         }
 
-        private void InviteAdapter_ItemClick(Model.User obj)
+        private async void InviteAdapter_ItemClick(Model.User obj)
         {
-            Toast.MakeText(this, obj.Email, ToastLength.Short).Show();
+            var token = prefs.GetString("token", null);
+
+            if (token != null && CheckConnection())
+            {
+                try
+                {
+
+                    await _manager.SendInvite(token, id, obj.Email);
+                    var dialog = new Android.App.AlertDialog.Builder(this);
+                    string message = $"Пользователь {obj.Email} был приглашен в группу";
+                    dialog.SetMessage(message);
+                    dialog.SetPositiveButton("Ок", delegate { });
+                    dialog.Show();
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    var dialog = new Android.App.AlertDialog.Builder(this);
+                    string message = "Ваши параметры авторизации устарели." +
+                        "\nВы будете возвращены на страницу авторизации, чтобы пройти процедуру авторизации заново";
+                    dialog.SetMessage(message);
+                    dialog.SetCancelable(false);
+                    dialog.SetPositiveButton("Ок", delegate
+                    {
+                        Finish();
+                    });
+                    dialog.Show();
+                }
+                catch (Exception ex)
+                {
+                    var dialog = new Android.App.AlertDialog.Builder(this);
+                    string message = ex.Message;
+                    dialog.SetMessage(message);
+                    dialog.SetPositiveButton("Ок", delegate { });
+                    dialog.Show();
+                }
+ 
+            }
         }
 
         public bool CheckConnection()
