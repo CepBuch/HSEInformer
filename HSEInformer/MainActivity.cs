@@ -140,7 +140,8 @@ namespace HSEInformer
             {
                 case (Resource.Id.menu_plus):
                     {
-                        //TODO: Open add activity
+                        var intent = new Intent(this, typeof(AddActivity));
+                        StartActivity(intent);
                         return true;
                     }
                 case (Resource.Id.menu_message):

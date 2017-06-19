@@ -113,6 +113,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddActivity.cs" />
+    <Compile Include="AddActivityPagerAdapter.cs" />
     <Compile Include="ApiManager.cs" />
     <Compile Include="DTO\Group.cs" />
     <Compile Include="DTO\GroupContent.cs" />
@@ -120,6 +122,9 @@
     <Compile Include="DTO\Response.cs" />
     <Compile Include="DTO\Token.cs" />
     <Compile Include="DTO\User.cs" />
+    <Compile Include="Fragments\AddAndSearch\CreateGroupFragment.cs" />
+    <Compile Include="Fragments\AddAndSearch\InvitesFragment.cs" />
+    <Compile Include="Fragments\AddAndSearch\SearchGroupFragment.cs" />
     <Compile Include="Fragments\GroupContent\GroupMembersFragment.cs" />
     <Compile Include="Fragments\GroupsFragment.cs" />
     <Compile Include="Fragments\Login and registration\CodeFragment.cs" />
@@ -194,6 +199,18 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\GroupMembersContainerFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\AddActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CreateGroupFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SearchGropFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\InvitesFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
