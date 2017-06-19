@@ -43,6 +43,7 @@ namespace HSEInformer
         const string UriCreateGroup = "{0}/createGroup";
         const string UriGetUsersToInvite = "{0}/getUsersToInvite?id={1}";
         const string UriSendInvite = "{0}/sendInvite";
+        const string UriGetUserInvites = "{0}/getUserInvites";
 
 
         public ApiManager(string host)
@@ -830,6 +831,78 @@ namespace HSEInformer
                 {
                     UserName = username,
                     GroupId = id
+                });
+
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(requestUri, content);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
+        }
+
+        public async Task<List<Model.Group>> GetUserInvites(string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format("{0}/getUserInvites", _host);
+
+
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<Response<Group[]>>(responseString);
+                    if (res != null && res.Ok)
+                    {
+                        var DTOgroups = res.Result;
+
+                        var modelGroups = DTOgroups.Select(g => new Model.Group
+                        {
+                            Id = g.Id,
+                            Name = g.Name,
+                            Type = g.GroupType == 0 ? Model.GroupType.AutoCreated : Model.GroupType.Custom,
+                        }).ToArray();
+
+                        return modelGroups.OrderBy(g => g.Name).ToList();
+                    }
+                    else
+                    {
+                        throw new WebException("Неполадки на сервере");
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    throw new WebException("Неполадки на сервере");
+                }
+
+            }
+        }
+
+        public async Task AnswerInvite(string token, int group_id, bool accepted)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string requestUri = string.Format("{0}/sendInviteAnswer", _host);
+
+                var jsonString = JsonConvert.SerializeObject(new
+                {
+                    GroupId = group_id,
+                    Accepted = accepted
                 });
 
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");

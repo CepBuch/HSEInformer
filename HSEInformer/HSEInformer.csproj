@@ -141,6 +141,8 @@
     <Compile Include="GroupViewModel\GroupAdapter.cs" />
     <Compile Include="GroupViewModel\GroupList.cs" />
     <Compile Include="GroupViewModel\GroupViewHolder.cs" />
+    <Compile Include="InviteResponseViewModel\InviteResponseAdapter.cs" />
+    <Compile Include="InviteResponseViewModel\InviteResponseViewHolder.cs" />
     <Compile Include="InviteToGroupActivity.cs" />
     <Compile Include="InviteViewModek\InviteAdapter.cs" />
     <Compile Include="InviteViewModek\InviteViewHolder.cs" />
@@ -232,6 +234,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\InviteActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\InviteResponseView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
